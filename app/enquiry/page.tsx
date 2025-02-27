@@ -5,37 +5,42 @@ const products = [
   {
     name: "Avocado (Butter Fresh)",
     price: "₹56/kg",
-    image: "/img.jpg",
+    image: "/veg/avocado.png",
   },
   {
     name: "Broccoli Only",
     price: "₹29/kg",
-    image: "/img.jpg",
+    image: "/veg/broccoli.png",
   },
   {
     name: "Strawberries",
     price: "₹9/box",
-    image: "/img.jpg",
+    image: "/veg/strawberry.png",
   },
   {
     name: "Pomegranate Kabul",
     price: "₹48/kg",
-    image: "/img.jpg",
+    image: "/veg/pomegranate.png",
   },
   {
     name: "Dragon Fruit (white)",
     price: "₹43/kg",
-    image: "/img.jpg",
+    image: "/veg/dragon.png",
   },
   {
     name: "Green Peas Fresh",
     price: "₹48/500g",
-    image: "/img.jpg",
+    image: "/veg/greenpea.png",
   },
   {
     name: "Apple Shimla",
     price: "₹29/kg",
-    image: "/img.jpg",
+    image: "/veg/apple.png",
+  },
+  {
+    name: "Coconut Konkan",
+    price: "₹29/kg",
+    image: "/veg/coconut.png",
   },
 ]
 const page = () => {
@@ -65,7 +70,7 @@ const page = () => {
                       size="sm"
                       className="text-[#00843D] border-[#00843D] hover:bg-[#00843D] hover:text-white"
                     >
-                      Buy Now
+                      Enquire Now
                     </Button>
                   </div>
                 </div>

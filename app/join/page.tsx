@@ -9,80 +9,80 @@ const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
 const supabase = createClient(supabaseUrl, supabaseKey);
 
 interface FormData {
-  fullName: string;
-  contactNumber: string;
+  full_name: string;
+  contact_number: string;
   email?: string;
   aadhaar?: string;
-  totalLandArea: string;
-  cropsGrown: string[];
-  farmingType: string;
-  irrigationMethod: string;
-  fertilizerUsage: string;
-  harvestSeasons: string;
-  averageYield: string;
-  previousBuyers: string;
+  total_land_area: string;
+  crops_grown: string[];
+  farming_type: string;
+  irrigation_method: string;
+  fertilizer_usage: string;
+  harvest_seasons: string;
+  average_yield: string;
+  previous_buyers: string;
   village: string;
   taluk: string;
   district: string;
   state: string;
-  pinCode: string;
-  geoLocation: string;
-  nearestMarket: string;
-  deliveryMode: string;
-  storageFacilities: string;
-  distanceToRoad: string;
-  transportAvailability: string;
-  paymentMethod: string;
-  bankAccount: string;
-  bankName: string;
-  ifscCode: string;
-  upiId: string;
-  landOwnershipProof: string;
-  longTermPartnership: string;
-  additionalRemarks: string;
+  pin_code: string;
+  geo_location: string;
+  nearest_market: string;
+  delivery_mode: string;
+  storage_facilities: string;
+  distance_to_road: string;
+  transport_availability: string;
+  payment_method: string;
+  bank_account: string;
+  bank_name: string;
+  ifsc_code: string;
+  upi_id: string;
+  land_ownership_proof: string;
+  long_term_partnership: string;
+  additional_remarks: string;
   latitude: number;
   longitude: number;
 }
 
 const Page: React.FC = () => {
   const [formData, setFormData] = useState<FormData>({
-    fullName: "",
-    contactNumber: "",
+    full_name: "",
+    contact_number: "",
     email: "",
     aadhaar: "",
-    totalLandArea: "",
-    cropsGrown: [""],
-    farmingType: "",
-    irrigationMethod: "",
-    fertilizerUsage: "",
-    harvestSeasons: "",
-    averageYield: "",
-    previousBuyers: "",
+    total_land_area: "",
+    crops_grown: [""],
+    farming_type: "",
+    irrigation_method: "",
+    fertilizer_usage: "",
+    harvest_seasons: "",
+    average_yield: "",
+    previous_buyers: "",
     village: "",
     taluk: "",
     district: "",
     state: "",
-    pinCode: "",
-    geoLocation: "",
-    nearestMarket: "",
-    deliveryMode: "",
-    storageFacilities: "",
-    distanceToRoad: "",
-    transportAvailability: "",
-    paymentMethod: "",
-    bankAccount: "",
-    bankName: "",
-    ifscCode: "",
-    upiId: "",
-    landOwnershipProof: "",
-    longTermPartnership: "",
-    additionalRemarks: "",
+    pin_code: "",
+    geo_location: "",
+    nearest_market: "",
+    delivery_mode: "",
+    storage_facilities: "",
+    distance_to_road: "",
+    transport_availability: "",
+    payment_method: "",
+    bank_account: "",
+    bank_name: "",
+    ifsc_code: "",
+    upi_id: "",
+    land_ownership_proof: "",
+    long_term_partnership: "",
+    additional_remarks: "",
     latitude: 0,
     longitude: 0,
   });
 
   const handleCropChange = (index: number, value: string) => {
-    const newCropsGrown = [...formData.cropsGrown];
+    const newCropsGrown = [...formData.crops_grown];
     newCropsGrown[index] = value;
 
     // If the current input is filled and it's the last one, add a new empty input
@@ -90,12 +90,12 @@ const Page: React.FC = () => {
       newCropsGrown.push("");
     }
 
-    setFormData({ ...formData, cropsGrown: newCropsGrown });
+    setFormData({ ...formData, crops_grown: newCropsGrown });
   };
 
   const handleRemoveCrop = (index: number) => {
-    const newCropsGrown = formData.cropsGrown.filter((_, i) => i !== index);
-    setFormData({ ...formData, cropsGrown: newCropsGrown });
+    const newCropsGrown = formData.crops_grown.filter((_, i) => i !== index);
+    setFormData({ ...formData, crops_grown: newCropsGrown });
   };
 
   const [errors, setErrors] = useState<{ [key in keyof FormData]?: string }>({});
@@ -119,12 +119,12 @@ const Page: React.FC = () => {
     if (files && files[0]) {
       const file = files[0];
 
-      if (name === 'landOwnershipProof') {
+      if (name === 'land_ownership_proof') {
         try {
           // Upload file to Supabase Storage
           const fileExt = file.name.split('.').pop();
           const fileName = `${Date.now()}.${fileExt}`;
-          const filePath = `${formData.fullName}/${fileName}`;
+          const filePath = `${formData.full_name}/${fileName}`;
 
           const { data, error } = await supabase.storage
             .from('farmer-documents')
@@ -141,7 +141,7 @@ const Page: React.FC = () => {
 
           setFormData(prev => ({
             ...prev,
-            landOwnershipProof: publicUrl
+            land_ownership_proof: publicUrl
           }));
 
         } catch (error) {
@@ -163,7 +163,7 @@ const Page: React.FC = () => {
 
           setFormData({
             ...formData,
-            geoLocation: address,
+            geo_location: address,
             latitude,
             longitude
           });
@@ -196,16 +196,16 @@ const Page: React.FC = () => {
       
       // Reset form data to initial empty state
       setFormData({
-        fullName: "", contactNumber: "", email: "", aadhaar: "",
-        totalLandArea: "", cropsGrown: [""], farmingType: "",
-        irrigationMethod: "", fertilizerUsage: "", harvestSeasons: "",
-        averageYield: "", previousBuyers: "", village: "", taluk: "",
-        district: "", state: "", pinCode: "", geoLocation: "",
-        nearestMarket: "", deliveryMode: "", storageFacilities: "",
-        distanceToRoad: "", transportAvailability: "", paymentMethod: "",
-        bankAccount: "", bankName: "", ifscCode: "", upiId: "",
-        landOwnershipProof: "", longTermPartnership: "",
-        additionalRemarks: "", latitude: 0, longitude: 0
+        full_name: "", contact_number: "", email: "", aadhaar: "",
+        total_land_area: "", crops_grown: [""], farming_type: "",
+        irrigation_method: "", fertilizer_usage: "", harvest_seasons: "",
+        average_yield: "", previous_buyers: "", village: "", taluk: "",
+        district: "", state: "", pin_code: "", geo_location: "",
+        nearest_market: "", delivery_mode: "", storage_facilities: "",
+        distance_to_road: "", transport_availability: "", payment_method: "",
+        bank_account: "", bank_name: "", ifsc_code: "", upi_id: "",
+        land_ownership_proof: "", long_term_partnership: "",
+        additional_remarks: "", latitude: 0, longitude: 0
       });
       
       alert("Farmer added successfully!");
@@ -258,7 +258,7 @@ const Page: React.FC = () => {
       // Update form data
       setFormData({
         ...formData,
-        geoLocation: address,
+        geo_location: address,
         latitude: lat,
         longitude: lng
       });
@@ -292,7 +292,7 @@ const Page: React.FC = () => {
   };
 
   return (
-    <div className="w-full h-screen bg-cover bg-center bg-no-repeat bg-fixed" style={{ backgroundImage: "url(/image.png)" }}>
+    <div className="w-full h-screen bg-cover bg-center bg-no-repeat bg-fixed" style={{ backgroundImage: "url(/bg.png)" }}>
       <div className="absolute inset-0 flex justify-center items-start overflow-y-auto">
         <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-3xl my-10">
           <h2 className="text-2xl font-semibold mb-4 text-center">Farmer Onboarding Form</h2>
@@ -302,12 +302,12 @@ const Page: React.FC = () => {
             <fieldset className="space-y-4">
               <legend className="text-lg font-semibold">Basic Information</legend>
               <label className="block">
-                Full Name: <input type="text" name="fullName" value={formData.fullName} onChange={handleChange} required className="w-full border p-2 rounded" />
-                {errors.fullName && <span className="text-red-500 text-sm">{errors.fullName}</span>}
+                Full Name: <input type="text" name="full_name" value={formData.full_name} onChange={handleChange} required className="w-full border p-2 rounded" />
+                {errors.full_name && <span className="text-red-500 text-sm">{errors.full_name}</span>}
               </label>
               <label className="block">
-                Contact Number: <input type="tel" name="contactNumber" value={formData.contactNumber} onChange={handleChange} required className="w-full border p-2 rounded" />
-                {errors.contactNumber && <span className="text-red-500 text-sm">{errors.contactNumber}</span>}
+                Contact Number: <input type="tel" name="contact_number" value={formData.contact_number} onChange={handleChange} required className="w-full border p-2 rounded" />
+                {errors.contact_number && <span className="text-red-500 text-sm">{errors.contact_number}</span>}
               </label>
               <label className="block">
                 Email: <input type="email" name="email" value={formData.email} onChange={handleChange} className="w-full border p-2 rounded" />
@@ -321,11 +321,11 @@ const Page: React.FC = () => {
             <fieldset className="space-y-4">
               <legend className="text-lg font-semibold">Farm & Crop Details</legend>
               <label className="block">
-                Total Land Area (acres): <input type="number" name="totalLandArea" value={formData.totalLandArea} onChange={handleChange} required className="w-full border p-2 rounded" />
-                {errors.totalLandArea && <span className="text-red-500 text-sm">{errors.totalLandArea}</span>}
+                Total Land Area (acres): <input type="number" name="total_land_area" value={formData.total_land_area} onChange={handleChange} required className="w-full border p-2 rounded" />
+                {errors.total_land_area && <span className="text-red-500 text-sm">{errors.total_land_area}</span>}
               </label>
               <label className="block">Crops Grown:
-                {formData.cropsGrown.map((crop, index) => (
+                {formData.crops_grown.map((crop, index) => (
                   <div key={index} className="flex items-center space-x-2">
                     <input
                       type="text"
@@ -347,17 +347,17 @@ const Page: React.FC = () => {
                 ))}
               </label>
               <label className="block">
-                Type of Farming: <select name="farmingType" value={formData.farmingType} onChange={handleChange} required className="w-full border p-2 rounded">
+                Type of Farming: <select name="farming_type" value={formData.farming_type} onChange={handleChange} required className="w-full border p-2 rounded">
                   <option value="">Select</option>
                   <option value="Organic">Organic</option>
                   <option value="Conventional">Conventional</option>
                   <option value="Natural">Natural</option>
                   <option value="Mixed">Mixed</option>
                 </select>
-                {errors.farmingType && <span className="text-red-500 text-sm">{errors.farmingType}</span>}
+                {errors.farming_type && <span className="text-red-500 text-sm">{errors.farming_type}</span>}
               </label>
               <label className="block">
-                Irrigation Method: <select name="irrigationMethod" value={formData.irrigationMethod} onChange={handleChange} required className="w-full border p-2 rounded">
+                Irrigation Method: <select name="irrigation_method" value={formData.irrigation_method} onChange={handleChange} required className="w-full border p-2 rounded">
                   <option value="">Select</option>
                   <option value="Rainfed">Rainfed</option>
                   <option value="Borewell">Borewell</option>
@@ -366,28 +366,28 @@ const Page: React.FC = () => {
                   <option value="Sprinkler">Sprinkler</option>
                   <option value="Mixed">Mixed</option>
                 </select>
-                {errors.irrigationMethod && <span className="text-red-500 text-sm">{errors.irrigationMethod}</span>}
+                {errors.irrigation_method && <span className="text-red-500 text-sm">{errors.irrigation_method}</span>}
               </label>
               <label className="block">
-                Fertilizer & Pesticide Usage: <select name="fertilizerUsage" value={formData.fertilizerUsage} onChange={handleChange} required className="w-full border p-2 rounded">
+                Fertilizer & Pesticide Usage: <select name="fertilizer_usage" value={formData.fertilizer_usage} onChange={handleChange} required className="w-full border p-2 rounded">
                   <option value="">Select</option>
                   <option value="Chemical">Chemical</option>
                   <option value="Organic">Organic</option>
                   <option value="Both">Both</option>
                 </select>
-                {errors.fertilizerUsage && <span className="text-red-500 text-sm">{errors.fertilizerUsage}</span>}
+                {errors.fertilizer_usage && <span className="text-red-500 text-sm">{errors.fertilizer_usage}</span>}
               </label>
               <label className="block">
-                Harvest Seasons: <input type="text" name="harvestSeasons" value={formData.harvestSeasons} onChange={handleChange} required className="w-full border p-2 rounded" />
-                {errors.harvestSeasons && <span className="text-red-500 text-sm">{errors.harvestSeasons}</span>}
+                Harvest Seasons: <input type="text" name="harvest_seasons" value={formData.harvest_seasons} onChange={handleChange} required className="w-full border p-2 rounded" />
+                {errors.harvest_seasons && <span className="text-red-500 text-sm">{errors.harvest_seasons}</span>}
               </label>
               <label className="block">
-                Average Yield (quintals/tons): <input type="text" name="averageYield" value={formData.averageYield} onChange={handleChange} required className="w-full border p-2 rounded" />
-                {errors.averageYield && <span className="text-red-500 text-sm">{errors.averageYield}</span>}
+                Average Yield (quintals/tons): <input type="text" name="average_yield" value={formData.average_yield} onChange={handleChange} required className="w-full border p-2 rounded" />
+                {errors.average_yield && <span className="text-red-500 text-sm">{errors.average_yield}</span>}
               </label>
               <label className="block">
-                Previous Buyers: <textarea name="previousBuyers" value={formData.previousBuyers} onChange={handleChange} className="w-full border p-2 rounded" />
-                {errors.previousBuyers && <span className="text-red-500 text-sm">{errors.previousBuyers}</span>}
+                Previous Buyers: <textarea name="previous_buyers" value={formData.previous_buyers} onChange={handleChange} className="w-full border p-2 rounded" />
+                {errors.previous_buyers && <span className="text-red-500 text-sm">{errors.previous_buyers}</span>}
               </label>
             </fieldset>
 
@@ -411,8 +411,8 @@ const Page: React.FC = () => {
                 {errors.state && <span className="text-red-500 text-sm">{errors.state}</span>}
               </label>
               <label className="block">
-                Pin Code: <input type="text" name="pinCode" value={formData.pinCode} onChange={handleChange} required className="w-full border p-2 rounded" />
-                {errors.pinCode && <span className="text-red-500 text-sm">{errors.pinCode}</span>}
+                Pin Code: <input type="text" name="pin_code" value={formData.pin_code} onChange={handleChange} required className="w-full border p-2 rounded" />
+                {errors.pin_code && <span className="text-red-500 text-sm">{errors.pin_code}</span>}
               </label>
               <div>
                 {/* Map Container */}
@@ -429,12 +429,12 @@ const Page: React.FC = () => {
               </div>
               <label className="block">
                 Geo-Location: <button type="button" onClick={handleGeoLocation} className="bg-blue-500 text-white px-4 py-2 rounded">Fetch Location</button>
-                <input type="text" name="geoLocation" value={formData.geoLocation} onChange={handleChange} required className="w-full border p-2 rounded mt-2" readOnly />
-                {errors.geoLocation && <span className="text-red-500 text-sm">{errors.geoLocation}</span>}
+                <input type="text" name="geo_location" value={formData.geo_location} onChange={handleChange} required className="w-full border p-2 rounded mt-2" readOnly />
+                {errors.geo_location && <span className="text-red-500 text-sm">{errors.geo_location}</span>}
               </label>
               <label className="block">
-                Nearest Market / Mandi: <input type="text" name="nearestMarket" value={formData.nearestMarket} onChange={handleChange} required className="w-full border p-2 rounded" />
-                {errors.nearestMarket && <span className="text-red-500 text-sm">{errors.nearestMarket}</span>}
+                Nearest Market / Mandi: <input type="text" name="nearest_market" value={formData.nearest_market} onChange={handleChange} required className="w-full border p-2 rounded" />
+                {errors.nearest_market && <span className="text-red-500 text-sm">{errors.nearest_market}</span>}
               </label>
             </fieldset>
 
@@ -442,35 +442,35 @@ const Page: React.FC = () => {
             <fieldset className="space-y-4">
               <legend className="text-lg font-semibold">Logistics & Supply Preferences</legend>
               <label className="block">
-                Preferred Mode of Delivery: <select name="deliveryMode" value={formData.deliveryMode} onChange={handleChange} required className="w-full border p-2 rounded">
+                Preferred Mode of Delivery: <select name="delivery_mode" value={formData.delivery_mode} onChange={handleChange} required className="w-full border p-2 rounded">
                   <option value="">Select</option>
                   <option value="Self">Self</option>
                   <option value="Third-Party Logistics">Third-Party Logistics</option>
                   <option value="Cooperative Transport">Cooperative Transport</option>
                 </select>
-                {errors.deliveryMode && <span className="text-red-500 text-sm">{errors.deliveryMode}</span>}
+                {errors.delivery_mode && <span className="text-red-500 text-sm">{errors.delivery_mode}</span>}
               </label>
               <label className="block">
-                Storage Facilities Available: <select name="storageFacilities" value={formData.storageFacilities} onChange={handleChange} required className="w-full border p-2 rounded">
+                Storage Facilities Available: <select name="storage_facilities" value={formData.storage_facilities} onChange={handleChange} required className="w-full border p-2 rounded">
                   <option value="">Select</option>
                   <option value="Cold Storage">Cold Storage</option>
                   <option value="Warehouse">Warehouse</option>
                   <option value="Open Shed">Open Shed</option>
                   <option value="None">None</option>
                 </select>
-                {errors.storageFacilities && <span className="text-red-500 text-sm">{errors.storageFacilities}</span>}
+                {errors.storage_facilities && <span className="text-red-500 text-sm">{errors.storage_facilities}</span>}
               </label>
               <label className="block">
-                Distance from Nearest Major Road (km): <input type="number" name="distanceToRoad" value={formData.distanceToRoad} onChange={handleChange} required className="w-full border p-2 rounded" />
-                {errors.distanceToRoad && <span className="text-red-500 text-sm">{errors.distanceToRoad}</span>}
+                Distance from Nearest Major Road (km): <input type="number" name="distance_to_road" value={formData.distance_to_road} onChange={handleChange} required className="w-full border p-2 rounded" />
+                {errors.distance_to_road && <span className="text-red-500 text-sm">{errors.distance_to_road}</span>}
               </label>
               <label className="block">
-                Availability of Transport Vehicle: <select name="transportAvailability" value={formData.transportAvailability} onChange={handleChange} required className="w-full border p-2 rounded">
+                Availability of Transport Vehicle: <select name="transport_availability" value={formData.transport_availability} onChange={handleChange} required className="w-full border p-2 rounded">
                   <option value="">Select</option>
                   <option value="Yes">Yes</option>
                   <option value="No">No</option>
                 </select>
-                {errors.transportAvailability && <span className="text-red-500 text-sm">{errors.transportAvailability}</span>}
+                {errors.transport_availability && <span className="text-red-500 text-sm">{errors.transport_availability}</span>}
               </label>
             </fieldset>
 
@@ -478,36 +478,36 @@ const Page: React.FC = () => {
             <fieldset className="space-y-4">
               <legend className="text-lg font-semibold">Payment & Banking Details</legend>
               <label className="block">
-                Preferred Payment Method: <select name="paymentMethod" value={formData.paymentMethod} onChange={handleChange} required className="w-full border p-2 rounded">
+                Preferred Payment Method: <select name="payment_method" value={formData.payment_method} onChange={handleChange} required className="w-full border p-2 rounded">
                   <option value="">Select</option>
                   <option value="Bank Transfer">Bank Transfer</option>
                   <option value="UPI">UPI</option>
                   <option value="Cash">Cash</option>
                 </select>
-                {errors.paymentMethod && <span className="text-red-500 text-sm">{errors.paymentMethod}</span>}
+                {errors.payment_method && <span className="text-red-500 text-sm">{errors.payment_method}</span>}
               </label>
 
-              {formData.paymentMethod === "Bank Transfer" && (
+              {formData.payment_method === "Bank Transfer" && (
                 <>
                   <label className="block">
-                    Bank Account Number: <input type="text" name="bankAccount" value={formData.bankAccount} onChange={handleChange} required className="w-full border p-2 rounded" />
-                    {errors.bankAccount && <span className="text-red-500 text-sm">{errors.bankAccount}</span>}
+                    Bank Account Number: <input type="text" name="bank_account" value={formData.bank_account} onChange={handleChange} required className="w-full border p-2 rounded" />
+                    {errors.bank_account && <span className="text-red-500 text-sm">{errors.bank_account}</span>}
                   </label>
                   <label className="block">
-                    Bank Name & Branch: <input type="text" name="bankName" value={formData.bankName} onChange={handleChange} required className="w-full border p-2 rounded" />
-                    {errors.bankName && <span className="text-red-500 text-sm">{errors.bankName}</span>}
+                    Bank Name & Branch: <input type="text" name="bank_name" value={formData.bank_name} onChange={handleChange} required className="w-full border p-2 rounded" />
+                    {errors.bank_name && <span className="text-red-500 text-sm">{errors.bank_name}</span>}
                   </label>
                   <label className="block">
-                    IFSC Code: <input type="text" name="ifscCode" value={formData.ifscCode} onChange={handleChange} required className="w-full border p-2 rounded" />
-                    {errors.ifscCode && <span className="text-red-500 text-sm">{errors.ifscCode}</span>}
+                    IFSC Code: <input type="text" name="ifsc_code" value={formData.ifsc_code} onChange={handleChange} required className="w-full border p-2 rounded" />
+                    {errors.ifsc_code && <span className="text-red-500 text-sm">{errors.ifsc_code}</span>}
                   </label>
                 </>
               )}
 
-              {formData.paymentMethod === "UPI" && (
+              {formData.payment_method === "UPI" && (
                 <label className="block">
-                  UPI ID: <input type="text" name="upiId" value={formData.upiId} onChange={handleChange} required className="w-full border p-2 rounded" />
-                  {errors.upiId && <span className="text-red-500 text-sm">{errors.upiId}</span>}
+                  UPI ID: <input type="text" name="upi_id" value={formData.upi_id} onChange={handleChange} required className="w-full border p-2 rounded" />
+                  {errors.upi_id && <span className="text-red-500 text-sm">{errors.upi_id}</span>}
                 </label>
               )}
             </fieldset>
@@ -516,8 +516,8 @@ const Page: React.FC = () => {
             <fieldset className="space-y-4">
               <legend className="text-lg font-semibold">Supporting Documents</legend>
               <label className="block">
-                Land Ownership Proof: <input type="file" name="landOwnershipProof" onChange={handleFileChange} className="w-full border p-2 rounded" />
-                {formData.landOwnershipProof && (
+                Crop Image: <input type="file" name="land_ownership_proof" onChange={handleFileChange} className="w-full border p-2 rounded" />
+                {formData.land_ownership_proof && (
                   <p className="text-sm text-green-600 mt-1">File uploaded successfully</p>
                 )}
               </label>
@@ -527,15 +527,15 @@ const Page: React.FC = () => {
             <fieldset className="space-y-4">
               <legend className="text-lg font-semibold">Additional Information</legend>
               <label className="block">
-                Willing to Partner for Long-Term Supply? <select name="longTermPartnership" value={formData.longTermPartnership} onChange={handleChange} required className="w-full border p-2 rounded">
+                Willing to Partner for Long-Term Supply? <select name="long_term_partnership" value={formData.long_term_partnership} onChange={handleChange} required className="w-full border p-2 rounded">
                   <option value="">Select</option>
                   <option value="Yes">Yes</option>
                   <option value="No">No</option>
                 </select>
-                {errors.longTermPartnership && <span className="text-red-500 text-sm">{errors.longTermPartnership}</span>}
+                {errors.long_term_partnership && <span className="text-red-500 text-sm">{errors.long_term_partnership}</span>}
               </label>
               <label className="block">
-                Additional Remarks: <textarea name="additionalRemarks" value={formData.additionalRemarks} onChange={handleChange} className="w-full border p-2 rounded" />
+                Additional Remarks: <textarea name="additional_remarks" value={formData.additional_remarks} onChange={handleChange} className="w-full border p-2 rounded" />
               </label>
             </fieldset>
 

@@ -5,6 +5,7 @@ const isPublicRoute = createRouteMatcher([
   "/sign-in(.*)",
   "/sign-up(.*)",
   "/", // Root route
+  "/join", // add farmer
 ]);
 
 export default clerkMiddleware(async (auth, req) => {

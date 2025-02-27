@@ -138,7 +138,7 @@ export default function Home() {
               {[1, 2, 3, 4].map((i) => (
                 <div key={i} className="relative h-64">
                   <Image
-                    src={`/image.png`}
+                    src={`/farmer.png`}
                     alt={`Farmer ${i}`}
                     fill
                     className="object-cover rounded-lg"
@@ -218,7 +218,7 @@ export default function Home() {
               <div className="space-y-6">
                 <h2 className="text-3xl font-bold">
                   For an enhanced experience, visit any of our exclusive{" "}
-                  <span className="text-[#00843D]">Madras Mandi Store</span> near you
+                  <span className="text-[#00843D]">FreshXpress Store</span> near you
                 </h2>
                 <p className="text-gray-600">
                   Our exclusive stores guarantee a wide variety of fresh produce, top quality at affordable prices! An
@@ -244,7 +244,7 @@ export default function Home() {
                 {[1, 2, 3, 4].map((i) => (
                   <div key={i} className="relative h-48 rounded-lg overflow-hidden">
                     <Image
-                      src={`/image.png`}
+                      src={`/store.png`}
                       alt={`Store ${i}`}
                       fill
                       className="object-cover"
@@ -266,7 +266,7 @@ export default function Home() {
               {[1, 2, 3, 4, 5, 6].map((i) => (
                 <div key={i} className="relative h-16">
                   <Image
-                    src={`/image.png`}
+                    src={`/client.png`}
                     alt={`Client ${i}`}
                     fill
                     className="object-contain"
@@ -334,18 +334,18 @@ export default function Home() {
                 <div className="flex space-x-4 mt-8">
                   <Link href="#">
                     <Image
-                      src="/placeholder.svg?height=40&width=135"
+                      src="/google.png"
                       alt="Get it on Google Play"
-                      width={135}
-                      height={40}
+                      width={85}
+                      height={20}
                     />
                   </Link>
                   <Link href="#">
                     <Image
-                      src="/placeholder.svg?height=40&width=135"
+                      src="/play.png"
                       alt="Download on the App Store"
-                      width={135}
-                      height={40}
+                      width={85}
+                      height={20}
                     />
                   </Link>
                 </div>
