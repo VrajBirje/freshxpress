@@ -186,7 +186,7 @@ const Page: React.FC = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      const response = await fetch('http://localhost:5000/api/farmers', {
+      const response = await fetch('https://freshxpress-backend.onrender.com/api/farmers', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData)
