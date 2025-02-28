@@ -106,13 +106,13 @@ const Page: React.FC = () => {
     setErrors({ ...errors, [name]: "" });
   };
 
-  const handleMultiSelect = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const { name, options } = e.target;
-    const selectedValues = Array.from(options)
-      .filter((option) => option.selected)
-      .map((option) => option.value);
-    setFormData({ ...formData, [name]: selectedValues });
-  };
+  // const handleMultiSelect = (e: React.ChangeEvent<HTMLSelectElement>) => {
+  //   const { name, options } = e.target;
+  //   const selectedValues = Array.from(options)
+  //     .filter((option) => option.selected)
+  //     .map((option) => option.value);
+  //   setFormData({ ...formData, [name]: selectedValues });
+  // };
 
   const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, files } = e.target;
@@ -133,6 +133,7 @@ const Page: React.FC = () => {
           if (error) {
             throw error;
           }
+          console.log(data);
 
           // Get public URL for the uploaded file
           const { data: { publicUrl } } = supabase.storage

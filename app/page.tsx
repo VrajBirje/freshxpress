@@ -5,49 +5,6 @@ import { Facebook, Instagram, Linkedin, MapPin, Phone } from "lucide-react"
 import Link from "next/link";
 import { MobileNav } from "@/components/mobile-nav"
 
-const products = [
-  {
-    name: "Avocado (Butter Fresh)",
-    price: "₹56/kg",
-    image: "/img.jpg",
-  },
-  {
-    name: "Broccoli Only",
-    price: "₹29/kg",
-    image: "/img.jpg",
-  },
-  {
-    name: "Strawberries",
-    price: "₹9/box",
-    image: "/img.jpg",
-  },
-  {
-    name: "Pomegranate Kabul",
-    price: "₹48/kg",
-    image: "/img.jpg",
-  },
-  {
-    name: "Dragon Fruit (white)",
-    price: "₹43/kg",
-    image: "/img.jpg",
-  },
-  {
-    name: "Green Peas Fresh",
-    price: "₹48/500g",
-    image: "/img.jpg",
-  },
-  {
-    name: "Apple Shimla",
-    price: "₹29/kg",
-    image: "/img.jpg",
-  },
-  {
-    name: "Mango Konkan",
-    price: "₹29/kg",
-    image: "/img.jpg",
-  },
-]
-
 export default function Home() {
   return (
     <div className="flex min-h-screen flex-col">
@@ -163,7 +120,7 @@ export default function Home() {
               </div>
               <div>
                 <span className="text-[#00843D] font-medium">For Businesses</span>
-                <h2 className="text-3xl font-bold mt-2">Chennai's largest B2B fresh produce distributor</h2>
+                <h2 className="text-3xl font-bold mt-2">Chennai&apos;s largest B2B fresh produce distributor</h2>
                 <p className="mt-4 text-gray-600">
                   Our business model revolves around a B2B wholesale model that continues to evolve and customize
                   services. We maintain high retail and supply chain standards to ensure our produce is delivered to our
@@ -188,7 +145,7 @@ export default function Home() {
             <div className="grid md:grid-cols-2 gap-12">
               <div>
                 <h2 className="text-3xl font-bold">Get in touch with us for business</h2>
-                <p className="mt-4 text-gray-600">Leave us your details below and we'll get in touch with you</p>
+                <p className="mt-4 text-gray-600">Leave us your details below and we&apos;ll get in touch with you</p>
                 <div className="mt-8 space-y-4">
                   <div className="flex items-center space-x-2">
                     <MapPin className="text-[#00843D]" />
@@ -205,7 +162,7 @@ export default function Home() {
                 <Input placeholder="Enter your contact number" />
                 <Input placeholder="Enter your business name" />
                 <Input placeholder="Business Type" />
-                <Button className="w-full bg-[#00843D] hover:bg-[#00843D]/90">Let's Talk</Button>
+                <Button className="w-full bg-[#00843D] hover:bg-[#00843D]/90">Let&apos;s Talk</Button>
               </form>
             </div>
           </div>
@@ -328,7 +285,7 @@ export default function Home() {
               <div>
                 <h2 className="text-3xl font-bold">Download the App</h2>
                 <p className="mt-4 text-gray-600">
-                  The only freshly picked fruits and vegetables delivery service you'll ever need. Download the app and
+                  The only freshly picked fruits and vegetables delivery service you&apos;ll ever need. Download the app and
                   start filling up the cart today!
                 </p>
                 <div className="flex space-x-4 mt-8">
@@ -421,4 +378,3 @@ export default function Home() {
     </div>
   )
 }
-
