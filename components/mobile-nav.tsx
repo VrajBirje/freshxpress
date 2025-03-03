@@ -3,8 +3,6 @@ import { Button } from "@/components/ui/button"
 import { Menu } from "lucide-react"
 import Link from "next/link"
 // import { Dialog, DialogContent, DialogTitle, DialogDescription } from "@/components/ui/dialog"
-import { VisuallyHidden } from "@/components/ui/visually-hidden"
-
 export function MobileNav() {
   return (
     <Sheet>
@@ -15,10 +13,8 @@ export function MobileNav() {
         </Button>
       </SheetTrigger>
       <SheetContent side="right">
-        <VisuallyHidden>
-          <SheetTitle>Navigation Menu</SheetTitle>
-        </VisuallyHidden>
-        <nav className="flex flex-col space-y-4">
+        <SheetTitle>Navigation Menu</SheetTitle>
+        <nav className="flex flex-col space-y-4 mt-3">
           <Link href="/" className="text-lg font-medium hover:text-primary">
             Home
           </Link>
@@ -38,7 +34,7 @@ export function MobileNav() {
             Blogs
           </Link>
           <Link href="/join">
-            <Button className="w-full bg-[#00843D] hover:bg-[#00843D]/90">Join us</Button>
+            <Button className="w-full bg-[#00843D] hover:bg-[#00843D]/90 text-white">Join us</Button>
           </Link>
         </nav>
       </SheetContent>

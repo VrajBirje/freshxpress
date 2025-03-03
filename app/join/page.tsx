@@ -6,7 +6,7 @@ import { Loader2 } from "lucide-react"
 import { toast } from "react-hot-toast"
 import { Button } from "@/components/ui/button"
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog"
-import { VisuallyHidden } from "@/components/ui/visually-hidden"
+// import { VisuallyHidden } from "@/components/ui/visually-hidden"
 
 // Initialize Supabase client
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
