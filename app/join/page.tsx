@@ -2,6 +2,11 @@
 import React, { useState, useEffect } from "react";
 import L from "leaflet";
 import { createClient } from '@supabase/supabase-js';
+import { Loader2 } from "lucide-react"
+import { toast } from "react-hot-toast"
+import { Button } from "@/components/ui/button"
+import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog"
+import { VisuallyHidden } from "@/components/ui/visually-hidden"
 
 // Initialize Supabase client
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
@@ -184,8 +189,13 @@ const Page: React.FC = () => {
     }
   };
 
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [showSuccessDialog, setShowSuccessDialog] = useState(false);
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setIsSubmitting(true);
+
     try {
       const response = await fetch('https://freshxpress-backend.onrender.com/api/farmers', {
         method: 'POST',
@@ -209,10 +219,13 @@ const Page: React.FC = () => {
         additional_remarks: "", latitude: 0, longitude: 0
       });
       
-      alert("Farmer added successfully!");
+      setShowSuccessDialog(true);
+      toast.success("Registration completed successfully!");
     } catch (error) {
-      alert("Error adding farmer");
+      toast.error("Something went wrong. Please try again.");
       console.error(error);
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -293,259 +306,290 @@ const Page: React.FC = () => {
   };
 
   return (
-    <div className="w-full h-screen bg-cover bg-center bg-no-repeat bg-fixed" style={{ backgroundImage: "url(/bg.png)" }}>
-      <div className="absolute inset-0 flex justify-center items-start overflow-y-auto">
-        <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-3xl my-10">
-          <h2 className="text-2xl font-semibold mb-4 text-center">Farmer Onboarding Form</h2>
-          <form onSubmit={handleSubmit} className="space-y-6">
-
-            {/* Basic Information */}
-            <fieldset className="space-y-4">
-              <legend className="text-lg font-semibold">Basic Information</legend>
-              <label className="block">
-                Full Name: <input type="text" name="full_name" value={formData.full_name} onChange={handleChange} required className="w-full border p-2 rounded" />
-                {errors.full_name && <span className="text-red-500 text-sm">{errors.full_name}</span>}
-              </label>
-              <label className="block">
-                Contact Number: <input type="tel" name="contact_number" value={formData.contact_number} onChange={handleChange} required className="w-full border p-2 rounded" />
-                {errors.contact_number && <span className="text-red-500 text-sm">{errors.contact_number}</span>}
-              </label>
-              <label className="block">
-                Email: <input type="email" name="email" value={formData.email} onChange={handleChange} className="w-full border p-2 rounded" />
-              </label>
-              <label className="block">
-                Aadhaar Number: <input type="text" name="aadhaar" value={formData.aadhaar} onChange={handleChange} className="w-full border p-2 rounded" />
-              </label>
-            </fieldset>
-
-            {/* Farm & Crop Details */}
-            <fieldset className="space-y-4">
-              <legend className="text-lg font-semibold">Farm & Crop Details</legend>
-              <label className="block">
-                Total Land Area (acres): <input type="number" name="total_land_area" value={formData.total_land_area} onChange={handleChange} required className="w-full border p-2 rounded" />
-                {errors.total_land_area && <span className="text-red-500 text-sm">{errors.total_land_area}</span>}
-              </label>
-              <label className="block">Crops Grown:
-                {formData.crops_grown.map((crop, index) => (
-                  <div key={index} className="flex items-center space-x-2">
-                    <input
-                      type="text"
-                      value={crop}
-                      onChange={(e) => handleCropChange(index, e.target.value)}
-                      className="w-full border p-2 rounded"
-                      placeholder={`Crop ${index + 1}`}
-                    />
-                    {index > 0 && (
-                      <button
-                        type="button"
-                        onClick={() => handleRemoveCrop(index)}
-                        className="text-red-500 hover:text-red-700"
-                      >
-                        ×
-                      </button>
-                    )}
-                  </div>
-                ))}
-              </label>
-              <label className="block">
-                Type of Farming: <select name="farming_type" value={formData.farming_type} onChange={handleChange} required className="w-full border p-2 rounded">
-                  <option value="">Select</option>
-                  <option value="Organic">Organic</option>
-                  <option value="Conventional">Conventional</option>
-                  <option value="Natural">Natural</option>
-                  <option value="Mixed">Mixed</option>
-                </select>
-                {errors.farming_type && <span className="text-red-500 text-sm">{errors.farming_type}</span>}
-              </label>
-              <label className="block">
-                Irrigation Method: <select name="irrigation_method" value={formData.irrigation_method} onChange={handleChange} required className="w-full border p-2 rounded">
-                  <option value="">Select</option>
-                  <option value="Rainfed">Rainfed</option>
-                  <option value="Borewell">Borewell</option>
-                  <option value="Canal">Canal</option>
-                  <option value="Drip">Drip</option>
-                  <option value="Sprinkler">Sprinkler</option>
-                  <option value="Mixed">Mixed</option>
-                </select>
-                {errors.irrigation_method && <span className="text-red-500 text-sm">{errors.irrigation_method}</span>}
-              </label>
-              <label className="block">
-                Fertilizer & Pesticide Usage: <select name="fertilizer_usage" value={formData.fertilizer_usage} onChange={handleChange} required className="w-full border p-2 rounded">
-                  <option value="">Select</option>
-                  <option value="Chemical">Chemical</option>
-                  <option value="Organic">Organic</option>
-                  <option value="Both">Both</option>
-                </select>
-                {errors.fertilizer_usage && <span className="text-red-500 text-sm">{errors.fertilizer_usage}</span>}
-              </label>
-              <label className="block">
-                Harvest Seasons: <input type="text" name="harvest_seasons" value={formData.harvest_seasons} onChange={handleChange} required className="w-full border p-2 rounded" />
-                {errors.harvest_seasons && <span className="text-red-500 text-sm">{errors.harvest_seasons}</span>}
-              </label>
-              <label className="block">
-                Average Yield (quintals/tons): <input type="text" name="average_yield" value={formData.average_yield} onChange={handleChange} required className="w-full border p-2 rounded" />
-                {errors.average_yield && <span className="text-red-500 text-sm">{errors.average_yield}</span>}
-              </label>
-              <label className="block">
-                Previous Buyers: <textarea name="previous_buyers" value={formData.previous_buyers} onChange={handleChange} className="w-full border p-2 rounded" />
-                {errors.previous_buyers && <span className="text-red-500 text-sm">{errors.previous_buyers}</span>}
-              </label>
-            </fieldset>
-
-            {/* Location Details */}
-            <fieldset className="space-y-4">
-              <legend className="text-lg font-semibold">Location Details</legend>
-              <label className="block">
-                Village: <input type="text" name="village" value={formData.village} onChange={handleChange} required className="w-full border p-2 rounded" />
-                {errors.village && <span className="text-red-500 text-sm">{errors.village}</span>}
-              </label>
-              <label className="block">
-                Taluk / Tehsil: <input type="text" name="taluk" value={formData.taluk} onChange={handleChange} required className="w-full border p-2 rounded" />
-                {errors.taluk && <span className="text-red-500 text-sm">{errors.taluk}</span>}
-              </label>
-              <label className="block">
-                District: <input type="text" name="district" value={formData.district} onChange={handleChange} required className="w-full border p-2 rounded" />
-                {errors.district && <span className="text-red-500 text-sm">{errors.district}</span>}
-              </label>
-              <label className="block">
-                State: <input type="text" name="state" value={formData.state} onChange={handleChange} required className="w-full border p-2 rounded" />
-                {errors.state && <span className="text-red-500 text-sm">{errors.state}</span>}
-              </label>
-              <label className="block">
-                Pin Code: <input type="text" name="pin_code" value={formData.pin_code} onChange={handleChange} required className="w-full border p-2 rounded" />
-                {errors.pin_code && <span className="text-red-500 text-sm">{errors.pin_code}</span>}
-              </label>
-              <div>
-                {/* Map Container */}
-                <div id="map" style={{ height: "400px", width: "100%" }}></div>
-
-                {/* Display Coordinates and Address */}
-                {formData.latitude !== 0 && formData.longitude !== 0 && (
-                  <div className="mt-4">
-                    <p><strong>Latitude:</strong> {formData.latitude}</p>
-                    <p><strong>Longitude:</strong> {formData.longitude}</p>
-                    <p><strong>Address:</strong> {address}</p>
-                  </div>
-                )}
-              </div>
-              <label className="block">
-                Geo-Location: <button type="button" onClick={handleGeoLocation} className="bg-blue-500 text-white px-4 py-2 rounded">Fetch Location</button>
-                <input type="text" name="geo_location" value={formData.geo_location} onChange={handleChange} required className="w-full border p-2 rounded mt-2" readOnly />
-                {errors.geo_location && <span className="text-red-500 text-sm">{errors.geo_location}</span>}
-              </label>
-              <label className="block">
-                Nearest Market / Mandi: <input type="text" name="nearest_market" value={formData.nearest_market} onChange={handleChange} required className="w-full border p-2 rounded" />
-                {errors.nearest_market && <span className="text-red-500 text-sm">{errors.nearest_market}</span>}
-              </label>
-            </fieldset>
-
-            {/* Logistics & Supply Preferences */}
-            <fieldset className="space-y-4">
-              <legend className="text-lg font-semibold">Logistics & Supply Preferences</legend>
-              <label className="block">
-                Preferred Mode of Delivery: <select name="delivery_mode" value={formData.delivery_mode} onChange={handleChange} required className="w-full border p-2 rounded">
-                  <option value="">Select</option>
-                  <option value="Self">Self</option>
-                  <option value="Third-Party Logistics">Third-Party Logistics</option>
-                  <option value="Cooperative Transport">Cooperative Transport</option>
-                </select>
-                {errors.delivery_mode && <span className="text-red-500 text-sm">{errors.delivery_mode}</span>}
-              </label>
-              <label className="block">
-                Storage Facilities Available: <select name="storage_facilities" value={formData.storage_facilities} onChange={handleChange} required className="w-full border p-2 rounded">
-                  <option value="">Select</option>
-                  <option value="Cold Storage">Cold Storage</option>
-                  <option value="Warehouse">Warehouse</option>
-                  <option value="Open Shed">Open Shed</option>
-                  <option value="None">None</option>
-                </select>
-                {errors.storage_facilities && <span className="text-red-500 text-sm">{errors.storage_facilities}</span>}
-              </label>
-              <label className="block">
-                Distance from Nearest Major Road (km): <input type="number" name="distance_to_road" value={formData.distance_to_road} onChange={handleChange} required className="w-full border p-2 rounded" />
-                {errors.distance_to_road && <span className="text-red-500 text-sm">{errors.distance_to_road}</span>}
-              </label>
-              <label className="block">
-                Availability of Transport Vehicle: <select name="transport_availability" value={formData.transport_availability} onChange={handleChange} required className="w-full border p-2 rounded">
-                  <option value="">Select</option>
-                  <option value="Yes">Yes</option>
-                  <option value="No">No</option>
-                </select>
-                {errors.transport_availability && <span className="text-red-500 text-sm">{errors.transport_availability}</span>}
-              </label>
-            </fieldset>
-
-            {/* Payment & Banking Details */}
-            <fieldset className="space-y-4">
-              <legend className="text-lg font-semibold">Payment & Banking Details</legend>
-              <label className="block">
-                Preferred Payment Method: <select name="payment_method" value={formData.payment_method} onChange={handleChange} required className="w-full border p-2 rounded">
-                  <option value="">Select</option>
-                  <option value="Bank Transfer">Bank Transfer</option>
-                  <option value="UPI">UPI</option>
-                  <option value="Cash">Cash</option>
-                </select>
-                {errors.payment_method && <span className="text-red-500 text-sm">{errors.payment_method}</span>}
-              </label>
-
-              {formData.payment_method === "Bank Transfer" && (
-                <>
-                  <label className="block">
-                    Bank Account Number: <input type="text" name="bank_account" value={formData.bank_account} onChange={handleChange} required className="w-full border p-2 rounded" />
-                    {errors.bank_account && <span className="text-red-500 text-sm">{errors.bank_account}</span>}
-                  </label>
-                  <label className="block">
-                    Bank Name & Branch: <input type="text" name="bank_name" value={formData.bank_name} onChange={handleChange} required className="w-full border p-2 rounded" />
-                    {errors.bank_name && <span className="text-red-500 text-sm">{errors.bank_name}</span>}
-                  </label>
-                  <label className="block">
-                    IFSC Code: <input type="text" name="ifsc_code" value={formData.ifsc_code} onChange={handleChange} required className="w-full border p-2 rounded" />
-                    {errors.ifsc_code && <span className="text-red-500 text-sm">{errors.ifsc_code}</span>}
-                  </label>
-                </>
-              )}
-
-              {formData.payment_method === "UPI" && (
+    <>
+      <div className="w-full min-h-screen bg-cover bg-center bg-no-repeat bg-fixed" style={{ backgroundImage: "url(/bg.png)" }}>
+        <div className="absolute inset-0 flex justify-center items-start overflow-y-auto py-8">
+          <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-3xl my-10">
+            <h2 className="text-2xl font-semibold mb-6 text-center">Farmer Onboarding Form</h2>
+            <p className="text-gray-600 mb-8 text-center">Please fill in your details below to join our network of farmers</p>
+            
+            <form onSubmit={handleSubmit} className="space-y-8">
+              {/* Basic Information */}
+              <fieldset className="space-y-4">
+                <legend className="text-lg font-semibold">Basic Information</legend>
                 <label className="block">
-                  UPI ID: <input type="text" name="upi_id" value={formData.upi_id} onChange={handleChange} required className="w-full border p-2 rounded" />
-                  {errors.upi_id && <span className="text-red-500 text-sm">{errors.upi_id}</span>}
+                  Full Name: <input type="text" name="full_name" value={formData.full_name} onChange={handleChange} required className="w-full border p-2 rounded" />
+                  {errors.full_name && <span className="text-red-500 text-sm">{errors.full_name}</span>}
                 </label>
-              )}
-            </fieldset>
+                <label className="block">
+                  Contact Number: <input type="tel" name="contact_number" value={formData.contact_number} onChange={handleChange} required className="w-full border p-2 rounded" />
+                  {errors.contact_number && <span className="text-red-500 text-sm">{errors.contact_number}</span>}
+                </label>
+                <label className="block">
+                  Email: <input type="email" name="email" value={formData.email} onChange={handleChange} className="w-full border p-2 rounded" />
+                </label>
+                <label className="block">
+                  Aadhaar Number: <input type="text" name="aadhaar" value={formData.aadhaar} onChange={handleChange} className="w-full border p-2 rounded" />
+                </label>
+              </fieldset>
 
-            {/* Supporting Documents */}
-            <fieldset className="space-y-4">
-              <legend className="text-lg font-semibold">Supporting Documents</legend>
-              <label className="block">
-                Crop Image: <input type="file" name="land_ownership_proof" onChange={handleFileChange} className="w-full border p-2 rounded" />
-                {formData.land_ownership_proof && (
-                  <p className="text-sm text-green-600 mt-1">File uploaded successfully</p>
+              {/* Farm & Crop Details */}
+              <fieldset className="space-y-4">
+                <legend className="text-lg font-semibold">Farm & Crop Details</legend>
+                <label className="block">
+                  Total Land Area (acres): <input type="number" name="total_land_area" value={formData.total_land_area} onChange={handleChange} required className="w-full border p-2 rounded" />
+                  {errors.total_land_area && <span className="text-red-500 text-sm">{errors.total_land_area}</span>}
+                </label>
+                <label className="block">Crops Grown:
+                  {formData.crops_grown.map((crop, index) => (
+                    <div key={index} className="flex items-center space-x-2">
+                      <input
+                        type="text"
+                        value={crop}
+                        onChange={(e) => handleCropChange(index, e.target.value)}
+                        className="w-full border p-2 rounded"
+                        placeholder={`Crop ${index + 1}`}
+                      />
+                      {index > 0 && (
+                        <button
+                          type="button"
+                          onClick={() => handleRemoveCrop(index)}
+                          className="text-red-500 hover:text-red-700"
+                        >
+                          ×
+                        </button>
+                      )}
+                    </div>
+                  ))}
+                </label>
+                <label className="block">
+                  Type of Farming: <select name="farming_type" value={formData.farming_type} onChange={handleChange} required className="w-full border p-2 rounded">
+                    <option value="">Select</option>
+                    <option value="Organic">Organic</option>
+                    <option value="Conventional">Conventional</option>
+                    <option value="Natural">Natural</option>
+                    <option value="Mixed">Mixed</option>
+                  </select>
+                  {errors.farming_type && <span className="text-red-500 text-sm">{errors.farming_type}</span>}
+                </label>
+                <label className="block">
+                  Irrigation Method: <select name="irrigation_method" value={formData.irrigation_method} onChange={handleChange} required className="w-full border p-2 rounded">
+                    <option value="">Select</option>
+                    <option value="Rainfed">Rainfed</option>
+                    <option value="Borewell">Borewell</option>
+                    <option value="Canal">Canal</option>
+                    <option value="Drip">Drip</option>
+                    <option value="Sprinkler">Sprinkler</option>
+                    <option value="Mixed">Mixed</option>
+                  </select>
+                  {errors.irrigation_method && <span className="text-red-500 text-sm">{errors.irrigation_method}</span>}
+                </label>
+                <label className="block">
+                  Fertilizer & Pesticide Usage: <select name="fertilizer_usage" value={formData.fertilizer_usage} onChange={handleChange} required className="w-full border p-2 rounded">
+                    <option value="">Select</option>
+                    <option value="Chemical">Chemical</option>
+                    <option value="Organic">Organic</option>
+                    <option value="Both">Both</option>
+                  </select>
+                  {errors.fertilizer_usage && <span className="text-red-500 text-sm">{errors.fertilizer_usage}</span>}
+                </label>
+                <label className="block">
+                  Harvest Seasons: <input type="text" name="harvest_seasons" value={formData.harvest_seasons} onChange={handleChange} required className="w-full border p-2 rounded" />
+                  {errors.harvest_seasons && <span className="text-red-500 text-sm">{errors.harvest_seasons}</span>}
+                </label>
+                <label className="block">
+                  Average Yield (quintals/tons): <input type="text" name="average_yield" value={formData.average_yield} onChange={handleChange} required className="w-full border p-2 rounded" />
+                  {errors.average_yield && <span className="text-red-500 text-sm">{errors.average_yield}</span>}
+                </label>
+                <label className="block">
+                  Previous Buyers: <textarea name="previous_buyers" value={formData.previous_buyers} onChange={handleChange} className="w-full border p-2 rounded" />
+                  {errors.previous_buyers && <span className="text-red-500 text-sm">{errors.previous_buyers}</span>}
+                </label>
+              </fieldset>
+
+              {/* Location Details */}
+              <fieldset className="space-y-4">
+                <legend className="text-lg font-semibold">Location Details</legend>
+                <label className="block">
+                  Village: <input type="text" name="village" value={formData.village} onChange={handleChange} required className="w-full border p-2 rounded" />
+                  {errors.village && <span className="text-red-500 text-sm">{errors.village}</span>}
+                </label>
+                <label className="block">
+                  Taluk / Tehsil: <input type="text" name="taluk" value={formData.taluk} onChange={handleChange} required className="w-full border p-2 rounded" />
+                  {errors.taluk && <span className="text-red-500 text-sm">{errors.taluk}</span>}
+                </label>
+                <label className="block">
+                  District: <input type="text" name="district" value={formData.district} onChange={handleChange} required className="w-full border p-2 rounded" />
+                  {errors.district && <span className="text-red-500 text-sm">{errors.district}</span>}
+                </label>
+                <label className="block">
+                  State: <input type="text" name="state" value={formData.state} onChange={handleChange} required className="w-full border p-2 rounded" />
+                  {errors.state && <span className="text-red-500 text-sm">{errors.state}</span>}
+                </label>
+                <label className="block">
+                  Pin Code: <input type="text" name="pin_code" value={formData.pin_code} onChange={handleChange} required className="w-full border p-2 rounded" />
+                  {errors.pin_code && <span className="text-red-500 text-sm">{errors.pin_code}</span>}
+                </label>
+                <div>
+                  {/* Map Container */}
+                  <div id="map" style={{ height: "400px", width: "100%" }}></div>
+
+                  {/* Display Coordinates and Address */}
+                  {formData.latitude !== 0 && formData.longitude !== 0 && (
+                    <div className="mt-4">
+                      <p><strong>Latitude:</strong> {formData.latitude}</p>
+                      <p><strong>Longitude:</strong> {formData.longitude}</p>
+                      <p><strong>Address:</strong> {address}</p>
+                    </div>
+                  )}
+                </div>
+                <label className="block">
+                  Geo-Location: <button type="button" onClick={handleGeoLocation} className="bg-blue-500 text-white px-4 py-2 rounded">Fetch Location</button>
+                  <input type="text" name="geo_location" value={formData.geo_location} onChange={handleChange} required className="w-full border p-2 rounded mt-2" readOnly />
+                  {errors.geo_location && <span className="text-red-500 text-sm">{errors.geo_location}</span>}
+                </label>
+                <label className="block">
+                  Nearest Market / Mandi: <input type="text" name="nearest_market" value={formData.nearest_market} onChange={handleChange} required className="w-full border p-2 rounded" />
+                  {errors.nearest_market && <span className="text-red-500 text-sm">{errors.nearest_market}</span>}
+                </label>
+              </fieldset>
+
+              {/* Logistics & Supply Preferences */}
+              <fieldset className="space-y-4">
+                <legend className="text-lg font-semibold">Logistics & Supply Preferences</legend>
+                <label className="block">
+                  Preferred Mode of Delivery: <select name="delivery_mode" value={formData.delivery_mode} onChange={handleChange} required className="w-full border p-2 rounded">
+                    <option value="">Select</option>
+                    <option value="Self">Self</option>
+                    <option value="Third-Party Logistics">Third-Party Logistics</option>
+                    <option value="Cooperative Transport">Cooperative Transport</option>
+                  </select>
+                  {errors.delivery_mode && <span className="text-red-500 text-sm">{errors.delivery_mode}</span>}
+                </label>
+                <label className="block">
+                  Storage Facilities Available: <select name="storage_facilities" value={formData.storage_facilities} onChange={handleChange} required className="w-full border p-2 rounded">
+                    <option value="">Select</option>
+                    <option value="Cold Storage">Cold Storage</option>
+                    <option value="Warehouse">Warehouse</option>
+                    <option value="Open Shed">Open Shed</option>
+                    <option value="None">None</option>
+                  </select>
+                  {errors.storage_facilities && <span className="text-red-500 text-sm">{errors.storage_facilities}</span>}
+                </label>
+                <label className="block">
+                  Distance from Nearest Major Road (km): <input type="number" name="distance_to_road" value={formData.distance_to_road} onChange={handleChange} required className="w-full border p-2 rounded" />
+                  {errors.distance_to_road && <span className="text-red-500 text-sm">{errors.distance_to_road}</span>}
+                </label>
+                <label className="block">
+                  Availability of Transport Vehicle: <select name="transport_availability" value={formData.transport_availability} onChange={handleChange} required className="w-full border p-2 rounded">
+                    <option value="">Select</option>
+                    <option value="Yes">Yes</option>
+                    <option value="No">No</option>
+                  </select>
+                  {errors.transport_availability && <span className="text-red-500 text-sm">{errors.transport_availability}</span>}
+                </label>
+              </fieldset>
+
+              {/* Payment & Banking Details */}
+              <fieldset className="space-y-4">
+                <legend className="text-lg font-semibold">Payment & Banking Details</legend>
+                <label className="block">
+                  Preferred Payment Method: <select name="payment_method" value={formData.payment_method} onChange={handleChange} required className="w-full border p-2 rounded">
+                    <option value="">Select</option>
+                    <option value="Bank Transfer">Bank Transfer</option>
+                    <option value="UPI">UPI</option>
+                    <option value="Cash">Cash</option>
+                  </select>
+                  {errors.payment_method && <span className="text-red-500 text-sm">{errors.payment_method}</span>}
+                </label>
+
+                {formData.payment_method === "Bank Transfer" && (
+                  <>
+                    <label className="block">
+                      Bank Account Number: <input type="text" name="bank_account" value={formData.bank_account} onChange={handleChange} required className="w-full border p-2 rounded" />
+                      {errors.bank_account && <span className="text-red-500 text-sm">{errors.bank_account}</span>}
+                    </label>
+                    <label className="block">
+                      Bank Name & Branch: <input type="text" name="bank_name" value={formData.bank_name} onChange={handleChange} required className="w-full border p-2 rounded" />
+                      {errors.bank_name && <span className="text-red-500 text-sm">{errors.bank_name}</span>}
+                    </label>
+                    <label className="block">
+                      IFSC Code: <input type="text" name="ifsc_code" value={formData.ifsc_code} onChange={handleChange} required className="w-full border p-2 rounded" />
+                      {errors.ifsc_code && <span className="text-red-500 text-sm">{errors.ifsc_code}</span>}
+                    </label>
+                  </>
                 )}
-              </label>
-            </fieldset>
 
-            {/* Additional Information */}
-            <fieldset className="space-y-4">
-              <legend className="text-lg font-semibold">Additional Information</legend>
-              <label className="block">
-                Willing to Partner for Long-Term Supply? <select name="long_term_partnership" value={formData.long_term_partnership} onChange={handleChange} required className="w-full border p-2 rounded">
-                  <option value="">Select</option>
-                  <option value="Yes">Yes</option>
-                  <option value="No">No</option>
-                </select>
-                {errors.long_term_partnership && <span className="text-red-500 text-sm">{errors.long_term_partnership}</span>}
-              </label>
-              <label className="block">
-                Additional Remarks: <textarea name="additional_remarks" value={formData.additional_remarks} onChange={handleChange} className="w-full border p-2 rounded" />
-              </label>
-            </fieldset>
+                {formData.payment_method === "UPI" && (
+                  <label className="block">
+                    UPI ID: <input type="text" name="upi_id" value={formData.upi_id} onChange={handleChange} required className="w-full border p-2 rounded" />
+                    {errors.upi_id && <span className="text-red-500 text-sm">{errors.upi_id}</span>}
+                  </label>
+                )}
+              </fieldset>
 
-            {/* Submit Button */}
-            <button type="submit" className="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700">Submit</button>
-          </form>
+              {/* Supporting Documents */}
+              <fieldset className="space-y-4">
+                <legend className="text-lg font-semibold">Supporting Documents</legend>
+                <label className="block">
+                  Crop Image: <input type="file" name="land_ownership_proof" onChange={handleFileChange} className="w-full border p-2 rounded" />
+                  {formData.land_ownership_proof && (
+                    <p className="text-sm text-green-600 mt-1">File uploaded successfully</p>
+                  )}
+                </label>
+              </fieldset>
+
+              {/* Additional Information */}
+              <fieldset className="space-y-4">
+                <legend className="text-lg font-semibold">Additional Information</legend>
+                <label className="block">
+                  Willing to Partner for Long-Term Supply? <select name="long_term_partnership" value={formData.long_term_partnership} onChange={handleChange} required className="w-full border p-2 rounded">
+                    <option value="">Select</option>
+                    <option value="Yes">Yes</option>
+                    <option value="No">No</option>
+                  </select>
+                  {errors.long_term_partnership && <span className="text-red-500 text-sm">{errors.long_term_partnership}</span>}
+                </label>
+                <label className="block">
+                  Additional Remarks: <textarea name="additional_remarks" value={formData.additional_remarks} onChange={handleChange} className="w-full border p-2 rounded" />
+                </label>
+              </fieldset>
+
+              {/* Update the submit button */}
+              <Button 
+                type="submit" 
+                className="w-full h-12 text-lg text-white"
+                disabled={isSubmitting}
+              >
+                {isSubmitting ? (
+                  <>
+                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                    Submitting...
+                  </>
+                ) : (
+                  "Submit Registration"
+                )}
+              </Button>
+            </form>
+          </div>
         </div>
       </div>
-    </div>
+
+      {/* Success Dialog */}
+      <Dialog open={showSuccessDialog} onOpenChange={setShowSuccessDialog}>
+        <DialogContent>
+          <DialogTitle>Registration Successful!</DialogTitle>
+          <div className="py-4">
+            <p className="text-gray-600">Thank you for registering with FreshXpress. Our team will review your application and contact you soon.</p>
+          </div>
+          <div className="flex justify-end text-white">
+            <Button onClick={() => setShowSuccessDialog(false)}>
+              Close
+            </Button>
+          </div>
+        </DialogContent>
+      </Dialog>
+    </>
   );
 };
 

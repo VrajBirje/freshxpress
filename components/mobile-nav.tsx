@@ -1,7 +1,9 @@
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
+import { Sheet, SheetContent, SheetTrigger, SheetTitle } from "@/components/ui/sheet"
 import { Button } from "@/components/ui/button"
 import { Menu } from "lucide-react"
 import Link from "next/link"
+// import { Dialog, DialogContent, DialogTitle, DialogDescription } from "@/components/ui/dialog"
+import { VisuallyHidden } from "@/components/ui/visually-hidden"
 
 export function MobileNav() {
   return (
@@ -13,6 +15,9 @@ export function MobileNav() {
         </Button>
       </SheetTrigger>
       <SheetContent side="right">
+        <VisuallyHidden>
+          <SheetTitle>Navigation Menu</SheetTitle>
+        </VisuallyHidden>
         <nav className="flex flex-col space-y-4">
           <Link href="/" className="text-lg font-medium hover:text-primary">
             Home
@@ -32,10 +37,11 @@ export function MobileNav() {
           <Link href="#" className="text-lg font-medium hover:text-primary">
             Blogs
           </Link>
-          <Button className="w-full bg-[#00843D] hover:bg-[#00843D]/90">Order Now</Button>
+          <Link href="/join">
+            <Button className="w-full bg-[#00843D] hover:bg-[#00843D]/90">Join us</Button>
+          </Link>
         </nav>
       </SheetContent>
     </Sheet>
   )
 }
-
