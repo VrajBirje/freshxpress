@@ -1,25 +1,45 @@
+"use client";
 import Image from "next/image"
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Facebook, Instagram, Linkedin, MapPin, Phone } from "lucide-react"
 import Link from "next/link";
+import { motion, AnimatePresence } from "framer-motion";
+
+const images = [
+  { src: "/1.png", title: "Explore Now", title2: "Explore Now", subtitle: "Delivered to your doorstep" },
+  { src: "/2.png", title: "Join Our Network", title2: "", subtitle: "Delivered to your doorstep" },
+  { src: "/3.png", title: "Procure with Us", title2: "", subtitle: "Delivered to your doorstep" },
+];
 import { MobileNav } from "@/components/mobile-nav"
 
 export default function Home() {
+  const [index, setIndex] = useState(0);
+  const [direction, setDirection] = useState(1);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setDirection(1);
+      setIndex((prevIndex) => (prevIndex + 1) % images.length);
+    }, 4000);
+    return () => clearInterval(interval);
+  }, []);
+
   return (
     <div className="flex min-h-screen flex-col">
       <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
         <div className="container flex h-16 items-center justify-between">
           <Link href="/" className="flex items-center space-x-2">
             <Image
-              src="/img.jpg"
+              src="/Press2.png"
               alt="Madras Mandi"
               width={120}
               height={40}
               className="h-10 w-auto"
             />
           </Link>
-          <nav className="hidden md:flex items-center space-x-6">
+          <nav className="hidden md:flex items-center space-x-8">
             <Link href="/" className="text-sm font-medium hover:text-primary">
               Home
             </Link>
@@ -41,7 +61,7 @@ export default function Home() {
           </nav>
           <div className="flex items-center space-x-4">
             <Link href="/join">
-              <Button className="hidden md:inline-flex text-white bg-[#00843D] hover:bg-[#00843D]/90">Join Now</Button>
+              <Button className="hidden md:inline-flex text-white bg-[#FFA500] hover:bg-[#00843D]/90">Join as Farmers</Button>
             </Link>
             <MobileNav />
           </div>
@@ -50,26 +70,46 @@ export default function Home() {
 
       <main className="flex-1">
         {/* Hero Section */}
-        <section className="relative h-[60vh] min-h-[400px] bg-[#00843D]/10">
-          <Image
-            src="/img.jpg"
-            alt="Fresh vegetables"
-            fill
-            className="object-cover"
-            priority
-          />
-          <div className="absolute inset-0 bg-black/40">
-            <div className="container h-full flex flex-col justify-center text-white">
-              <h1 className="text-4xl md:text-6xl font-bold mb-4">Freshly Harvested</h1>
-              <p className="text-xl mb-8">Delivered to your doorstep</p>
-              <Button className="w-fit bg-[#00843D] hover:bg-[#00843D]/90">Explore now</Button>
-            </div>
+        <section className="relative h-[75vh] min-h-[400px] overflow-hidden">
+          <div className="relative w-full h-full flex items-center overflow-hidden">
+            <AnimatePresence initial={false} custom={direction}>
+              <motion.div
+                key={images[index].src}
+                custom={direction}
+                initial={{ x: direction > 0 ? "100%" : "-100%" }}
+                animate={{ x: 0 }}
+                exit={{ x: direction > 0 ? "-100%" : "100%" }}
+                transition={{ duration: 1 }}
+                className="absolute inset-0 w-full h-full"
+              >
+                <Image
+                  src={images[index].src}
+                  alt={images[index].title}
+                  fill
+                  className="object-cover"
+                  priority
+                />
+                <div className="absolute inset-0 bg-black/40 flex items-center justify-center">
+                  <div className="container h-full flex flex-col justify-center text-white relative">
+                    {/* Centered Button at the Bottom */}
+                    {/* <h1 className="text-4xl md:text-6xl font-bold mb-4">{images[index].title2}</h1> */}
+                    {/* <p className="text-xl mb-8">{images[index].subtitle}</p> */}
+                    <Button className="absolute font-regular bottom-10 px-6 py-4 font-semibold text-xl left-40 transform -translate-x-1/2 w-fit bg-[#00843D] hover:bg-[#00843D]/90">
+                      {images[index].title}
+                    </Button>
+                  </div>
+                </div>
+              </motion.div>
+            </AnimatePresence>
           </div>
         </section>
 
+
         {/* Products Section */}
         <section className="py-16">
-          <div className="container flex justify-between items-center flex-col gap-10">
+          <div className="container flex justify-between items-center flex-col gap-8">
+            <span className="text-[#00843D] font-medium">Who We Are</span>
+            <p className="text-gray-600 max-w-4xl mx-auto text-center">At FreshXpress, we are dedicated to supplying the freshest fruits and vegetables directly sourced from farmers and Farmer Producer Organizations (FPOs). Catering specifically to businesses, supermarkets, malls, residential apartments, and societies, we streamline fresh produce supply with efficiency and transparency.</p>
             <h2 className="text-center text-3xl md:text-4xl font-bold mb-4">
               Explore our range of over <span className="text-[#FFA500]">200 fruits</span>
               <br />& vegetables
@@ -85,10 +125,18 @@ export default function Home() {
           <div className="container">
             <div className="text-center mb-12">
               <span className="text-[#00843D] font-medium">For Farmers</span>
-              <h2 className="text-3xl font-bold mt-2">Our farmers are our heroes!</h2>
-              <p className="mt-4 text-gray-600 max-w-3xl mx-auto">
-                Cultivating the culture of fair trade since 1970. At Madras Mandi, we ensure every farmer earns a
-                profit. We deliver goodness of food, heart and everything else that sets us apart!
+              <h2 className="text-3xl font-bold mt-2">Farmer Onboarding Program</h2>
+              <p className="mt-4 text-gray-600 max-w-4xl mx-auto text-center">
+                <p className="text-center mb-4">At FreshXpress, farmers are at the heart of our operation. We invite individual farmers and Farmer Producer Organizations (FPOs) to join our growing network and benefit from:</p>
+                <strong>Fair Pricing:</strong> Transparent pricing models that ensure farmers receive fair compensation.
+                <br />
+                <strong>Market Access:</strong> Reliable and regular market opportunities through our direct business-to-business connections.
+                <br />
+                <strong>Tech Integration:</strong> Access to our user-friendly tech platform that simplifies order management, payments, and logistics.
+                <br />
+                <strong>Training & Support:</strong> Continuous support and training to help enhance productivity, crop quality, and market readiness.
+                <br />
+                Join FreshXpress and empower your farming business with better opportunities and assured growth.
               </p>
             </div>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
@@ -120,20 +168,27 @@ export default function Home() {
               </div>
               <div>
                 <span className="text-[#00843D] font-medium">For Businesses</span>
-                <h2 className="text-3xl font-bold mt-2">Chennai&apos;s largest B2B fresh produce distributor</h2>
-                <p className="mt-4 text-gray-600">
-                  Our business model revolves around a B2B wholesale model that continues to evolve and customize
-                  services. We maintain high retail and supply chain standards to ensure our produce is delivered to our
-                  partners fresh and on time!
+                {/* <h2 className="text-3xl font-bold mt-2">Chennai&apos;s largest B2B fresh produce distributor</h2> */}
+                <p className="my-4 text-gray-600">
+                  We deliver fresh produce to Quick commerce, Modern trade businesses,  hotels, restaurants, caterers, and corporate institutions. Our robust supply chain ensures timely, high-quality deliveries every day.
                 </p>
-                <div className="grid grid-cols-2 gap-4 mt-8">
+                <span className="text-[#00843D] font-medium">For Apartments & Societies</span>
+                {/* <h2 className="text-3xl font-bold mt-2">Chennai&apos;s largest B2B fresh produce distributor</h2> */}
+                <p className="my-4 text-gray-600">
+                  Enjoy doorstep delivery of fresh fruits and vegetables, simplifying everyday life for residents. FreshXpress is your reliable community partner for daily freshness.
+                </p>
+                <span className="text-[#00843D] font-medium">Supermarkets & Malls</span>
+                {/* <h2 className="text-3xl font-bold mt-2">Chennai&apos;s largest B2B fresh produce distributor</h2> */}
+                <p className="mt-4 text-gray-600">
+                  We consistently supply supermarkets and malls with premium quality fruits and vegetables, ensuring shelves remain stocked and appealing to customers.</p>
+                {/* <div className="grid grid-cols-2 gap-4 mt-8">
                   {["Low prices", "99.99% fulfillment", "12 Hour delivery", "Ease of ordering"].map((feature) => (
                     <div key={feature} className="flex items-center space-x-2 text-sm">
                       <div className="h-2 w-2 bg-[#00843D] rounded-full" />
                       <span>{feature}</span>
                     </div>
                   ))}
-                </div>
+                </div> */}
               </div>
             </div>
           </div>
@@ -144,8 +199,9 @@ export default function Home() {
           <div className="container">
             <div className="grid md:grid-cols-2 gap-12">
               <div>
-                <h2 className="text-3xl font-bold">Get in touch with us for business</h2>
-                <p className="mt-4 text-gray-600">Leave us your details below and we&apos;ll get in touch with you</p>
+                <h2 className="text-3xl font-bold">Get Started with <span className="text-[#FFA500]">FreshXpress</span></h2>
+                <p className="mt-4 text-gray-600">Partner with FreshXpress today and experience a revolutionary approach to fresh produce delivery. Enhance your business or community living with our reliable, fresh, and efficient services.</p>
+                <p className="mt-4 text-gray-600">Contact FreshXpress today for freshness, convenience, and quality like never before.</p>
                 <div className="mt-8 space-y-4">
                   <div className="flex items-center space-x-2">
                     <MapPin className="text-[#00843D]" />
@@ -174,12 +230,18 @@ export default function Home() {
             <div className="grid md:grid-cols-2 gap-12 items-center">
               <div className="space-y-6">
                 <h2 className="text-3xl font-bold">
-                  For an enhanced experience, visit any of our exclusive{" "}
-                  <span className="text-[#00843D]">FreshXpress Store</span> near you
+                  Why choose{" "}
+                  <span className="text-[#00843D]">FreshXpress</span>?
                 </h2>
                 <p className="text-gray-600">
-                  Our exclusive stores guarantee a wide variety of fresh produce, top quality at affordable prices! An
-                  experience to remember!
+                  <strong>Farm Direct Sourcing:</strong> Direct connections with farmers and FPOs, eliminating intermediaries for fairer prices and fresher produce.
+                  <br />
+                  <strong>Tech-Enabled Operations:</strong> Advanced technology streamlining supply chain management, farmer onboarding, and transaction transparency.
+                  <br />
+                  <strong>Superior Quality Control:</strong> Rigorous quality checks to ensure premium-grade produce consistently meets the highest standards.
+                  <br />
+                  <strong>Comprehensive Range:</strong> A diverse selection of seasonal and exotic produce, available year-round to meet unique business needs.
+                  <br />
                 </p>
                 <div className="flex gap-8">
                   <div className="flex items-center gap-2">
@@ -195,7 +257,7 @@ export default function Home() {
                     <span>Bengaluru</span>
                   </div>
                 </div>
-                <Button className="bg-[#00843D] hover:bg-[#00843D]/90">Locate Our Stores</Button>
+                {/* <Button className="bg-[#00843D] hover:bg-[#00843D]/90">Locate Our Stores</Button> */}
               </div>
               <div className="grid grid-cols-2 gap-4">
                 {[1, 2, 3, 4].map((i) => (
@@ -238,6 +300,18 @@ export default function Home() {
             </div>
           </div>
         </section>
+
+        {/* Products Section */}
+        {/* <section className="py-16">
+          <div className="container flex justify-between items-center flex-col gap-8">
+            <h2 className="text-center text-3xl md:text-4xl font-bold mb-4">
+              Get Started with <span className="text-[#FFA500]">FreshXpress</span>
+            </h2>
+            <Link href="/enquiry">
+              <Button className="hidden md:inline-flex text-white bg-[#00843D] hover:bg-[#00843D]/90">Explore Now</Button>
+            </Link>
+          </div>
+        </section> */}
 
         {/* Testimonials Section */}
         <section className="py-16 bg-gray-50">
