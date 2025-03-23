@@ -1,43 +1,49 @@
-import { Sheet, SheetContent, SheetTrigger, SheetTitle } from "@/components/ui/sheet"
-import { Button } from "@/components/ui/button"
+"use client"
+
+import { useState } from "react"
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
 import { Menu } from "lucide-react"
 import Link from "next/link"
-// import { Dialog, DialogContent, DialogTitle, DialogDescription } from "@/components/ui/dialog"
-export function MobileNav() {
+import { Button } from "@/components/ui/button"
+
+export const MobileNav = () => {
+  const [open, setOpen] = useState(false)
+
   return (
-    <Sheet>
+    <Sheet open={open} onOpenChange={setOpen}>
       <SheetTrigger asChild>
-        <Button variant="ghost" className="md:hidden" size="icon">
-          <Menu className="h-6 w-6" />
-          <span className="sr-only">Toggle menu</span>
+        <Button variant="ghost" size="sm" className="md:hidden">
+          <Menu className="h-5 w-5" />
         </Button>
       </SheetTrigger>
-      <SheetContent side="right">
-        <SheetTitle>Navigation Menu</SheetTitle>
-        <nav className="flex flex-col space-y-4 mt-3">
-          <Link href="/" className="text-lg font-medium hover:text-primary">
+      <SheetContent side="right" className="w-64">
+        <nav className="flex flex-col space-y-4">
+          <Link href="/" className="text-sm font-medium text-gray-800 hover:text-[#00843D] transition-colors">
             Home
           </Link>
-          <Link href="#" className="text-lg font-medium hover:text-primary">
+          <Link href="#" className="text-sm font-medium text-gray-800 hover:text-[#00843D] transition-colors">
             For Business
           </Link>
-          <Link href="#" className="text-lg font-medium hover:text-primary">
+          <Link href="#" className="text-sm font-medium text-gray-800 hover:text-[#00843D] transition-colors">
             Our Products
           </Link>
-          <Link href="#" className="text-lg font-medium hover:text-primary">
+          <Link href="#" className="text-sm font-medium text-gray-800 hover:text-[#00843D] transition-colors">
             How It Works
           </Link>
-          <Link href="#" className="text-lg font-medium hover:text-primary">
+          <Link href="#" className="text-sm font-medium text-gray-800 hover:text-[#00843D] transition-colors">
             About Us
           </Link>
-          <Link href="#" className="text-lg font-medium hover:text-primary">
+          <Link href="#" className="text-sm font-medium text-gray-800 hover:text-[#00843D] transition-colors">
             Blogs
           </Link>
           <Link href="/join">
-            <Button className="w-full bg-[#00843D] hover:bg-[#00843D]/90 text-white">Join us</Button>
+            <Button className="inline-flex text-white bg-[#00843D] hover:bg-[#00843D]/90 shadow-md transition-all duration-300 hover:shadow-lg">
+              Join as Farmers
+            </Button>
           </Link>
         </nav>
       </SheetContent>
     </Sheet>
   )
 }
+
