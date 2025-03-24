@@ -45,7 +45,7 @@ export default function Home() {
     return () => clearInterval(interval)
   }, [])
 
-  const handleSlideChange = (newIndex) => {
+  const handleSlideChange = (newIndex: number) => {
     setDirection(newIndex > index ? 1 : -1)
     setIndex(newIndex)
   }
