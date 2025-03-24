@@ -298,7 +298,7 @@ export default function Home() {
                 <span className="text-[#00843D] font-medium text-lg inline-block mb-3 bg-[#E6F7EF] px-4 py-1 rounded-full">
                   For Businesses
                 </span>
-                <h2 className="text-3xl font-bold mt-2 mb-8">Chennai's largest B2B fresh produce distributor</h2>
+                <h2 className="text-3xl font-bold mt-2 mb-8">Chennai&apos; largest B2B fresh produce distributor</h2>
 
                 <div className="space-y-8">
                   <div className="border-l-4 border-[#00843D] pl-4">
@@ -328,7 +328,7 @@ export default function Home() {
                 </div>
 
                 <div className="grid grid-cols-2 gap-4 mt-8">
-                  {["Low prices", "99.99% fulfillment", "12 Hour delivery", "Ease of ordering"].map((feature, i) => (
+                  {["Low prices", "99.99% fulfillment", "12 Hour delivery", "Ease of ordering"].map((feature) => (
                     <div key={feature} className="flex items-center space-x-3 text-sm bg-gray-50 p-3 rounded-lg">
                       <div className="h-6 w-6 bg-[#E6F7EF] rounded-full flex items-center justify-center">
                         <Check className="h-4 w-4 text-[#00843D]" />
@@ -394,7 +394,7 @@ export default function Home() {
               >
                 <Card className="border-none shadow-lg overflow-hidden">
                   <CardContent className="p-8">
-                    <h3 className="text-2xl font-bold mb-6">Let's Talk</h3>
+                    <h3 className="text-2xl font-bold mb-6">Let&apos;s Talk</h3>
                     <form className="space-y-5">
                       <div className="space-y-2">
                         <label htmlFor="name" className="text-sm font-medium">
@@ -704,7 +704,7 @@ export default function Home() {
                 </span>
                 <h2 className="text-3xl md:text-4xl font-bold mb-6">Download the FreshXpress App</h2>
                 <p className="text-gray-700 text-lg leading-relaxed mb-8">
-                  The only freshly picked fruits and vegetables delivery service you'll ever need. Download the app and
+                  The only freshly picked fruits and vegetables delivery service you&apos;ll ever need. Download the app and
                   start filling up the cart today! Get real-time updates on your orders and exclusive app-only offers.
                 </p>
                 <div className="flex space-x-6 mt-8">
