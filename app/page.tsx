@@ -164,7 +164,7 @@ export default function Home() {
               <p className="text-gray-600 text-lg leading-relaxed mb-8">
                 At freshXpress, we bridge the gap between the farm and your business. As a dedicated fruits and vegetables procurement company, we source the freshest produce directly from trusted farmers and deliver it efficiently to B2B clients across various sectors.
                 <br />
-                Whether you're looking for organically grown or conventionally cultivated produce, freshXpress ensures consistent quality, reliable supply, and a seamless procurement experience. Our mission is to support farmers, empower businesses, and make fresh, nutritious produce accessible and affordable—without compromise.
+                Whether you&apos;re looking for organically grown or conventionally cultivated produce, freshXpress ensures consistent quality, reliable supply, and a seamless procurement experience. Our mission is to support farmers, empower businesses, and make fresh, nutritious produce accessible and affordable—without compromise.
                 <br />
                 From field to fork, we keep it fresh. That’s the freshXpress promise.
               </p>
@@ -318,7 +318,7 @@ export default function Home() {
                     <h3 className="text-xl font-bold mb-2">Farm-Fresh Sourcing</h3>
                     <p className="text-gray-600 leading-relaxed">
                       At FreshXpress, we specialize in delivering farm-fresh fruits and vegetables tailored to meet the dynamic
-                      needs of modern businesses. Whether you're a supermarket, a quick commerce platform, a retail chain in a
+                      needs of modern businesses. Whether you&apos;re a supermarket, a quick commerce platform, a retail chain in a
                       mall, or part of the modern trade ecosystem, we’ve got you covered.
                     </p>
                   </div>
