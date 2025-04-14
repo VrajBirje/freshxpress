@@ -55,7 +55,7 @@ export default function Home() {
       <header className="sticky top-0 z-50 w-full border-b bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/60 shadow-sm">
         <div className="container flex h-16 items-center justify-between">
           <Link href="/" className="flex items-center space-x-2">
-            <Image src="/Press2.png" alt="FreshXpress" width={120} height={40} className="h-10 w-auto" />
+            <Image src="/Press3.png" alt="FreshXpress" width={120} height={40} className="h-10 w-auto" />
           </Link>
           <nav className="hidden md:flex items-center space-x-8">
             <Link href="/" className="text-sm font-medium text-gray-800 hover:text-[#00843D] transition-colors">
@@ -775,7 +775,7 @@ export default function Home() {
         <div className="container">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-12">
             <div className="space-y-6">
-              <Image src="/Press2.png" alt="FreshXpress" width={160} height={50} className="h-12 w-auto" />
+              <Image src="/Press3.png" alt="FreshXpress" width={160} height={50} className="h-12 w-auto" />
               <p className="text-white/80">Tech20 Pvt Private Limited</p>
               <div className="flex space-x-4">
                 <Link

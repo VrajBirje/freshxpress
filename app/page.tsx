@@ -55,7 +55,7 @@ export default function Home() {
       <header className="sticky top-0 z-50 w-full border-b bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/60 shadow-sm">
         <div className="container flex h-16 items-center justify-between">
           <Link href="/" className="flex items-center space-x-2">
-            <Image src="/Press2.png" alt="FreshXpress" width={120} height={40} className="h-10 w-auto" />
+            <Image src="/Press3.png" alt="FreshXpress" width={120} height={40} className="h-10 w-auto" />
           </Link>
           <nav className="hidden md:flex items-center space-x-8">
             <Link href="/" className="text-sm font-medium text-gray-800 hover:text-[#00843D] transition-colors">
@@ -64,18 +64,18 @@ export default function Home() {
             <Link href="#" className="text-sm font-medium text-gray-800 hover:text-[#00843D] transition-colors">
               For Business
             </Link>
-            <Link href="#" className="text-sm font-medium text-gray-800 hover:text-[#00843D] transition-colors">
+            {/* <Link href="#" className="text-sm font-medium text-gray-800 hover:text-[#00843D] transition-colors">
               Our Products
             </Link>
             <Link href="#" className="text-sm font-medium text-gray-800 hover:text-[#00843D] transition-colors">
               How It Works
-            </Link>
+            </Link> */}
             <Link href="#" className="text-sm font-medium text-gray-800 hover:text-[#00843D] transition-colors">
               About Us
             </Link>
-            <Link href="#" className="text-sm font-medium text-gray-800 hover:text-[#00843D] transition-colors">
+            {/* <Link href="#" className="text-sm font-medium text-gray-800 hover:text-[#00843D] transition-colors">
               Blogs
-            </Link>
+            </Link> */}
           </nav>
           <div className="flex items-center space-x-4">
             <Link href="/join">
@@ -136,9 +136,8 @@ export default function Home() {
               <button
                 key={i}
                 onClick={() => handleSlideChange(i)}
-                className={`w-3 h-3 rounded-full transition-all duration-300 ${
-                  i === index ? "bg-white w-8" : "bg-white/50"
-                }`}
+                className={`w-3 h-3 rounded-full transition-all duration-300 ${i === index ? "bg-white w-8" : "bg-white/50"
+                  }`}
                 aria-label={`Go to slide ${i + 1}`}
               />
             ))}
@@ -163,10 +162,11 @@ export default function Home() {
                 <br />& vegetables
               </h2>
               <p className="text-gray-600 text-lg leading-relaxed mb-8">
-                At FreshXpress, we are dedicated to supplying the freshest fruits and vegetables directly sourced from
-                farmers and Farmer Producer Organizations (FPOs). Catering specifically to businesses, supermarkets,
-                malls, residential apartments, and societies, we streamline fresh produce supply with efficiency and
-                transparency.
+                At freshXpress, we bridge the gap between the farm and your business. As a dedicated fruits and vegetables procurement company, we source the freshest produce directly from trusted farmers and deliver it efficiently to B2B clients across various sectors.
+                <br />
+                Whether you're looking for organically grown or conventionally cultivated produce, freshXpress ensures consistent quality, reliable supply, and a seamless procurement experience. Our mission is to support farmers, empower businesses, and make fresh, nutritious produce accessible and affordable—without compromise.
+                <br />
+                From field to fork, we keep it fresh. That’s the freshXpress promise.
               </p>
               <Link href="/enquiry">
                 <Button className="text-white bg-[#00843D] hover:bg-[#00843D]/90 px-8 py-6 text-lg shadow-md transition-all duration-300 hover:shadow-lg hover:translate-y-[-2px]">
@@ -210,15 +210,25 @@ export default function Home() {
                   description:
                     "Reliable and regular market opportunities through our direct business-to-business connections",
                 },
+                // {
+                //   title: "Tech Integration",
+                //   description:
+                //     "Access to our user-friendly tech platform that simplifies order management, payments, and logistics",
+                // },
+                // {
+                //   title: "Training & Support",
+                //   description:
+                //     "Continuous support and training to help enhance productivity, crop quality, and market readiness",
+                // },
                 {
-                  title: "Tech Integration",
+                  title: "Training",
                   description:
-                    "Access to our user-friendly tech platform that simplifies order management, payments, and logistics",
+                    "Ongoing training sessions to improve productivity, crop quality, and best agricultural practices.",
                 },
                 {
-                  title: "Training & Support",
+                  title: "Support",
                   description:
-                    "Continuous support and training to help enhance productivity, crop quality, and market readiness",
+                    "Continuous support to ensure farmers are market-ready and equipped to handle challenges effectively",
                 },
               ].map((benefit, i) => (
                 <motion.div
@@ -242,18 +252,18 @@ export default function Home() {
             </div>
 
             <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-              {[1, 2, 3, 4].map((i) => (
+              {['farmer/1.png', 'farmer/2.png', 'farmer/3.png', 'farmer/farmer.png'].map((img, index) => (
                 <motion.div
-                  key={i}
+                  key={img}
                   initial={{ opacity: 0, scale: 0.95 }}
                   whileInView={{ opacity: 1, scale: 1 }}
                   viewport={{ once: true }}
-                  transition={{ duration: 0.5, delay: i * 0.1 }}
+                  transition={{ duration: 0.5, delay: index * 0.1 }}
                   className="relative h-64 overflow-hidden rounded-xl shadow-md"
                 >
                   <Image
-                    src={`/farmer.png`}
-                    alt={`Farmer ${i}`}
+                    src={`/${img}`} // ✅ fixed here
+                    alt={`Farmer ${img}`}
                     fill
                     className="object-cover hover:scale-105 transition-transform duration-700"
                   />
@@ -261,11 +271,14 @@ export default function Home() {
               ))}
             </div>
 
+
             <div className="text-center mt-12">
-              <Button className="bg-[#00843D] hover:bg-[#00843D]/90 text-white px-8 py-6 text-lg shadow-md transition-all duration-300 hover:shadow-lg hover:translate-y-[-2px]">
-                Join Our Network
-                <ChevronRight className="ml-2 h-5 w-5" />
-              </Button>
+              <Link href="/join">
+                <Button className="bg-[#00843D] hover:bg-[#00843D]/90 text-white px-8 py-6 text-lg shadow-md transition-all duration-300 hover:shadow-lg hover:translate-y-[-2px]">
+                  Join Our Network
+                  <ChevronRight className="ml-2 h-5 w-5" />
+                </Button>
+              </Link>
             </div>
           </div>
         </section>
@@ -302,27 +315,29 @@ export default function Home() {
 
                 <div className="space-y-8">
                   <div className="border-l-4 border-[#00843D] pl-4">
-                    <h3 className="text-xl font-bold mb-2">Quick Commerce & Modern Trade</h3>
+                    <h3 className="text-xl font-bold mb-2">Farm-Fresh Sourcing</h3>
                     <p className="text-gray-600 leading-relaxed">
-                      We deliver fresh produce to Quick commerce, Modern trade businesses, hotels, restaurants,
-                      caterers, and corporate institutions. Our robust supply chain ensures timely, high-quality
-                      deliveries every day.
+                      At FreshXpress, we specialize in delivering farm-fresh fruits and vegetables tailored to meet the dynamic
+                      needs of modern businesses. Whether you're a supermarket, a quick commerce platform, a retail chain in a
+                      mall, or part of the modern trade ecosystem, we’ve got you covered.
                     </p>
                   </div>
 
                   <div className="border-l-4 border-[#FFA500] pl-4">
-                    <h3 className="text-xl font-bold mb-2">Apartments & Societies</h3>
+                    <h3 className="text-xl font-bold mb-2">Reliable & Scalable Delivery</h3>
                     <p className="text-gray-600 leading-relaxed">
-                      Enjoy doorstep delivery of fresh fruits and vegetables, simplifying everyday life for residents.
-                      FreshXpress is your reliable community partner for daily freshness.
+                      By sourcing directly from farmers, we ensure the freshest possible produce reaches you quickly and reliably.
+                      Our robust supply chain and quality control processes guarantee consistency, traceability, and timely
+                      delivery — helping your business maintain high standards and customer satisfaction.
                     </p>
                   </div>
 
                   <div className="border-l-4 border-[#00843D] pl-4">
-                    <h3 className="text-xl font-bold mb-2">Supermarkets & Malls</h3>
+                    <h3 className="text-xl font-bold mb-2">Why Partner with FreshXpress?</h3>
                     <p className="text-gray-600 leading-relaxed">
-                      We consistently supply supermarkets and malls with premium quality fruits and vegetables, ensuring
-                      shelves remain stocked and appealing to customers.
+                      Daily fresh inventory straight from farms. Both organic and conventionally grown options. Scalable supply
+                      for seasonal and high-demand periods. Customized solutions to match your procurement needs. Let us take care
+                      of the sourcing, so you can focus on growth.
                     </p>
                   </div>
                 </div>
@@ -341,6 +356,7 @@ export default function Home() {
             </div>
           </div>
         </section>
+
 
         {/* Contact Form */}
         <section className="py-24 bg-[#F5FFF5]">
@@ -484,11 +500,11 @@ export default function Home() {
                       description:
                         "Direct connections with farmers and FPOs, eliminating intermediaries for fairer prices and fresher produce.",
                     },
-                    {
-                      title: "Tech-Enabled Operations",
-                      description:
-                        "Advanced technology streamlining supply chain management, farmer onboarding, and transaction transparency.",
-                    },
+                    // {
+                    //   title: "Tech-Enabled Operations",
+                    //   description:
+                    //     "Advanced technology streamlining supply chain management, farmer onboarding, and transaction transparency.",
+                    // },
                     {
                       title: "Superior Quality Control",
                       description:
@@ -520,12 +536,12 @@ export default function Home() {
                 </div>
 
                 <div className="flex gap-8 pt-4">
-                  <div className="flex items-center gap-3">
+                  {/* <div className="flex items-center gap-3">
                     <div className="h-12 w-12 rounded-full border-2 border-[#00843D] flex items-center justify-center bg-white shadow-md">
                       <MapPin className="h-6 w-6 text-[#00843D]" />
                     </div>
                     <span className="font-medium text-lg">Chennai</span>
-                  </div>
+                  </div> */}
                   <div className="flex items-center gap-3">
                     <div className="h-12 w-12 rounded-full border-2 border-[#00843D] flex items-center justify-center bg-white shadow-md">
                       <MapPin className="h-6 w-6 text-[#00843D]" />
@@ -542,19 +558,19 @@ export default function Home() {
                 transition={{ duration: 0.6, delay: 0.2 }}
                 className="grid grid-cols-2 gap-6"
               >
-                {[1, 2, 3, 4].map((i) => (
+                {["wcu/5.png", "wcu/6.png", "wcu/7.png", "store.png"].map((src, index) => (
                   <motion.div
-                    key={i}
+                    key={src}
                     initial={{ opacity: 0, scale: 0.9 }}
                     whileInView={{ opacity: 1, scale: 1 }}
                     viewport={{ once: true }}
-                    transition={{ duration: 0.5, delay: i * 0.1 }}
+                    transition={{ duration: 0.5, delay: index * 0.1 }}
                     className="relative h-60 rounded-xl overflow-hidden shadow-lg"
                     whileHover={{ y: -5 }}
                   >
                     <Image
-                      src={`/store.png`}
-                      alt={`Store ${i}`}
+                      src={`/${src}`}
+                      alt={`Store ${index + 1}`}
                       fill
                       className="object-cover hover:scale-105 transition-transform duration-700"
                     />
@@ -566,7 +582,7 @@ export default function Home() {
         </section>
 
         {/* Clients Section */}
-        <section className="py-24">
+        {/* <section className="py-24">
           <div className="container">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -608,10 +624,10 @@ export default function Home() {
               </Button>
             </div>
           </div>
-        </section>
+        </section> */}
 
         {/* Testimonials Section */}
-        <section className="py-24 bg-[#F8FAF8]">
+        {/* <section className="py-24 bg-[#F8FAF8]">
           <div className="container">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -679,18 +695,17 @@ export default function Home() {
               {[1, 2, 3, 4, 5].map((i) => (
                 <button
                   key={i}
-                  className={`h-3 w-3 rounded-full transition-all duration-300 ${
-                    i === 1 ? "bg-[#00843D] w-10" : "bg-gray-300"
-                  }`}
+                  className={`h-3 w-3 rounded-full transition-all duration-300 ${i === 1 ? "bg-[#00843D] w-10" : "bg-gray-300"
+                    }`}
                   aria-label={`Go to testimonial page ${i}`}
                 />
               ))}
             </div>
           </div>
-        </section>
+        </section> */}
 
         {/* App Download Section */}
-        <section className="py-24 bg-gradient-to-br from-[#E6F7EF] to-white">
+        {/* <section className="py-24 bg-gradient-to-br from-[#E6F7EF] to-white">
           <div className="container">
             <div className="grid md:grid-cols-2 gap-16 items-center">
               <motion.div
@@ -742,7 +757,7 @@ export default function Home() {
               </motion.div>
             </div>
           </div>
-        </section>
+        </section> */}
 
         {/* CTA Section */}
         <section className="py-16 bg-[#00843D]">
@@ -762,7 +777,7 @@ export default function Home() {
                 <Button className="bg-white text-[#00843D] hover:bg-white/90 px-8 py-6 text-lg shadow-lg transition-all duration-300 hover:shadow-xl">
                   Get Started Now
                 </Button>
-                <Button variant="outline" className="border-white text-white hover:bg-white/20 px-8 py-6 text-lg">
+                <Button variant="outline" className="border-white text-[#00843D] hover:bg-white/20 px-8 py-6 text-lg">
                   Contact Sales Team
                 </Button>
               </div>
@@ -775,7 +790,7 @@ export default function Home() {
         <div className="container">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-12">
             <div className="space-y-6">
-              <Image src="/Press2.png" alt="FreshXpress" width={160} height={50} className="h-12 w-auto" />
+              <Image src="/Press3.png" alt="FreshXpress" width={160} height={50} className="h-12 w-auto" />
               <p className="text-white/80">Tech20 Pvt Private Limited</p>
               <div className="flex space-x-4">
                 <Link
