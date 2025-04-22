@@ -61,16 +61,16 @@ export default function Home() {
             <Link href="/" className="text-sm font-medium text-gray-800 hover:text-[#00843D] transition-colors">
               Home
             </Link>
-            <Link href="#" className="text-sm font-medium text-gray-800 hover:text-[#00843D] transition-colors">
+            <Link href="#business" className="text-sm font-medium text-gray-800 hover:text-[#00843D] transition-colors">
               For Business
             </Link>
-            {/* <Link href="#" className="text-sm font-medium text-gray-800 hover:text-[#00843D] transition-colors">
-              Our Products
+            <Link href="#farmer" className="text-sm font-medium text-gray-800 hover:text-[#00843D] transition-colors">
+              For Farmers
             </Link>
-            <Link href="#" className="text-sm font-medium text-gray-800 hover:text-[#00843D] transition-colors">
-              How It Works
-            </Link> */}
-            <Link href="#" className="text-sm font-medium text-gray-800 hover:text-[#00843D] transition-colors">
+            <Link href="#contact" className="text-sm font-medium text-gray-800 hover:text-[#00843D] transition-colors">
+              Contact
+            </Link>
+            <Link href="#about" className="text-sm font-medium text-gray-800 hover:text-[#00843D] transition-colors">
               About Us
             </Link>
             {/* <Link href="#" className="text-sm font-medium text-gray-800 hover:text-[#00843D] transition-colors">
@@ -119,10 +119,12 @@ export default function Home() {
                     >
                       <h1 className="text-4xl md:text-6xl font-bold mb-4">{images[index].heading}</h1>
                       <p className="text-xl mb-8 text-gray-100">{images[index].subtitle}</p>
-                      <Button className="px-8 py-6 font-semibold text-lg bg-[#00843D] hover:bg-[#00843D]/90 shadow-lg transition-all duration-300 hover:shadow-xl hover:translate-y-[-2px] group">
-                        {images[index].title}
-                        <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
-                      </Button>
+                      <Link href="/join">
+                        <Button className="px-8 py-6 font-semibold text-lg bg-[#00843D] hover:bg-[#00843D]/90 shadow-lg transition-all duration-300 hover:shadow-xl hover:translate-y-[-2px] group">
+                          {images[index].title}
+                          <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
+                        </Button>
+                      </Link>
                     </motion.div>
                   </div>
                 </div>
@@ -145,7 +147,7 @@ export default function Home() {
         </section>
 
         {/* Who We Are Section */}
-        <section className="py-24">
+        <section className="py-24" id="about">
           <div className="container flex justify-between items-center flex-col gap-10">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -158,10 +160,10 @@ export default function Home() {
                 Who We Are
               </span>
               <h2 className="text-3xl md:text-5xl font-bold mb-6">
-                Explore our range of over <span className="text-[#FFA500]">200 fruits</span>
+                Explore our range of over <span className="text-[#FFA500]">fruits</span>
                 <br />& vegetables
               </h2>
-              <p className="text-gray-600 text-lg leading-relaxed mb-8">
+              <p className="text-gray-600 text-lg leading-relaxed mb-8 text-justify">
                 At freshXpress, we bridge the gap between the farm and your business. As a dedicated fruits and vegetables procurement company, we source the freshest produce directly from trusted farmers and deliver it efficiently to B2B clients across various sectors.
                 <br />
                 Whether you&apos;re looking for organically grown or conventionally cultivated produce, freshXpress ensures consistent quality, reliable supply, and a seamless procurement experience. Our mission is to support farmers, empower businesses, and make fresh, nutritious produce accessible and affordable—without compromise.
@@ -178,8 +180,9 @@ export default function Home() {
           </div>
         </section>
 
+
         {/* Farmers Section */}
-        <section className="py-24 bg-[#F8FAF8]">
+        <section className="py-24 bg-[#F8FAF8]" id="farmer">
           <div className="container">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -284,7 +287,7 @@ export default function Home() {
         </section>
 
         {/* B2B Section */}
-        <section className="py-24">
+        <section className="py-24" id="business">
           <div className="container">
             <div className="grid md:grid-cols-2 gap-16 items-center">
               <motion.div
@@ -311,7 +314,7 @@ export default function Home() {
                 <span className="text-[#00843D] font-medium text-lg inline-block mb-3 bg-[#E6F7EF] px-4 py-1 rounded-full">
                   For Businesses
                 </span>
-                <h2 className="text-3xl font-bold mt-2 mb-8">Chennai&apos; largest B2B fresh produce distributor</h2>
+                <h2 className="text-3xl font-bold mt-2 mb-8">The largest B2B fresh produce distributor</h2>
 
                 <div className="space-y-8">
                   <div className="border-l-4 border-[#00843D] pl-4">
@@ -359,7 +362,7 @@ export default function Home() {
 
 
         {/* Contact Form */}
-        <section className="py-24 bg-[#F5FFF5]">
+        <section className="py-24 bg-[#F5FFF5]" id="contact">
           <div className="container">
             <div className="grid md:grid-cols-2 gap-16">
               <motion.div
@@ -790,8 +793,8 @@ export default function Home() {
         <div className="container">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-12">
             <div className="space-y-6">
-              <Image src="/Press3.png" alt="FreshXpress" width={160} height={50} className="h-12 w-auto" />
-              <p className="text-white/80">Tech20 Pvt Private Limited</p>
+              <Image src="/Press2.png" alt="FreshXpress" width={160} height={50} className="h-12 w-auto" />
+              <p className="text-white/80">FreshXpress Ventures banglore</p>
               <div className="flex space-x-4">
                 <Link
                   href="#"
