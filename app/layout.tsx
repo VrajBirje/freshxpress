@@ -18,6 +18,9 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "FreshXpress",
   description: "FreshXpress",
+  icons: {
+    icon: '/fav2.png',
+  },
 };
 
 export default function RootLayout({

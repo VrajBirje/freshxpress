@@ -12,22 +12,25 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 
 const images = [
   {
-    src: "/1.png",
-    title: "Explore Now",
+    src: "/farmer/f1.png",
+    title: "Check Prices",
     heading: "Fresh Produce Directly From Farms",
     subtitle: "Quality fruits & vegetables delivered to your business",
+    link:"/enquiry"
   },
   {
-    src: "/2.png",
+    src: "/farmer/f2.png",
     title: "Join Our Network",
     heading: "Empowering Farmers Across India",
     subtitle: "Be part of our growing community of producers",
+    link:"/join"
   },
   {
-    src: "/3.png",
+    src: "/farmer/f3.png",
     title: "Procure with Us",
     heading: "Streamlined B2B Procurement",
     subtitle: "Reliable supply chain for your business needs",
+    link:"/join"
   },
 ]
 
@@ -119,7 +122,7 @@ export default function Home() {
                     >
                       <h1 className="text-4xl md:text-6xl font-bold mb-4">{images[index].heading}</h1>
                       <p className="text-xl mb-8 text-gray-100">{images[index].subtitle}</p>
-                      <Link href="/join">
+                      <Link href={images[index].link}>
                         <Button className="px-8 py-6 font-semibold text-lg bg-[#00843D] hover:bg-[#00843D]/90 shadow-lg transition-all duration-300 hover:shadow-xl hover:translate-y-[-2px] group">
                           {images[index].title}
                           <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
@@ -161,7 +164,7 @@ export default function Home() {
               </span>
               <h2 className="text-3xl md:text-5xl font-bold mb-6">
                 Explore our range of over <span className="text-[#FFA500]">fruits</span>
-                <br />& vegetables
+                <br />& <span className="text-[#00843D]">vegetables</span>
               </h2>
               <p className="text-gray-600 text-lg leading-relaxed mb-8 text-justify">
                 At freshXpress, we bridge the gap between the farm and your business. As a dedicated fruits and vegetables procurement company, we source the freshest produce directly from trusted farmers and deliver it efficiently to B2B clients across various sectors.
@@ -172,7 +175,7 @@ export default function Home() {
               </p>
               <Link href="/enquiry">
                 <Button className="text-white bg-[#00843D] hover:bg-[#00843D]/90 px-8 py-6 text-lg shadow-md transition-all duration-300 hover:shadow-lg hover:translate-y-[-2px]">
-                  Explore Now
+                  Check Prices
                   <ChevronRight className="ml-2 h-5 w-5" />
                 </Button>
               </Link>
@@ -389,7 +392,7 @@ export default function Home() {
                     <div>
                       <h3 className="font-bold text-lg mb-1">Our Location</h3>
                       <p className="text-gray-600">
-                        2nd floor, 635, 7th main road, 2nd stage, Indiranagar, Bengaluru, Urban, Karnataka, 560038
+                      Jyothi Nagar, Nelamgala, Bengaluru, Karnataka, 562123
                       </p>
                     </div>
                   </div>
@@ -399,7 +402,7 @@ export default function Home() {
                     </div>
                     <div>
                       <h3 className="font-bold text-lg mb-1">Contact Number</h3>
-                      <p className="text-gray-600">044-4827829</p>
+                      <p className="text-gray-600">+91 9964477987</p>
                     </div>
                   </div>
                 </div>
@@ -538,20 +541,20 @@ export default function Home() {
                   ))}
                 </div>
 
-                <div className="flex gap-8 pt-4">
-                  {/* <div className="flex items-center gap-3">
+                {/* <div className="flex gap-8 pt-4">
+                  <div className="flex items-center gap-3">
                     <div className="h-12 w-12 rounded-full border-2 border-[#00843D] flex items-center justify-center bg-white shadow-md">
                       <MapPin className="h-6 w-6 text-[#00843D]" />
                     </div>
                     <span className="font-medium text-lg">Chennai</span>
-                  </div> */}
+                  </div>
                   <div className="flex items-center gap-3">
                     <div className="h-12 w-12 rounded-full border-2 border-[#00843D] flex items-center justify-center bg-white shadow-md">
                       <MapPin className="h-6 w-6 text-[#00843D]" />
                     </div>
                     <span className="font-medium text-lg">Bengaluru</span>
                   </div>
-                </div>
+                </div> */}
               </motion.div>
 
               <motion.div
@@ -777,12 +780,16 @@ export default function Home() {
                 Join hundreds of businesses that trust FreshXpress for quality, reliability, and efficiency.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Button className="bg-white text-[#00843D] hover:bg-white/90 px-8 py-6 text-lg shadow-lg transition-all duration-300 hover:shadow-xl">
-                  Get Started Now
-                </Button>
-                <Button variant="outline" className="border-white text-[#00843D] hover:bg-white/20 px-8 py-6 text-lg">
-                  Contact Sales Team
-                </Button>
+                <Link href="/join">
+                  <Button className="bg-white text-[#00843D] hover:bg-white/90 px-8 py-6 text-lg shadow-lg transition-all duration-300 hover:shadow-xl">
+                    Get Started Now
+                  </Button>
+                </Link>
+                <Link href="#contact">
+                  <Button variant="outline" className="border-white text-[#00843D] hover:bg-white/20 px-8 py-6 text-lg">
+                    Contact Sales Team
+                  </Button>
+                </Link>
               </div>
             </motion.div>
           </div>
@@ -817,7 +824,7 @@ export default function Home() {
               </div>
             </div>
 
-            <div className="space-y-6">
+            {/* <div className="space-y-6">
               <h3 className="font-bold text-xl mb-4">Explore Products</h3>
               <ul className="space-y-3">
                 <li>
@@ -841,7 +848,7 @@ export default function Home() {
                   </Link>
                 </li>
               </ul>
-            </div>
+            </div> */}
 
             <div className="space-y-6">
               <h3 className="font-bold text-xl mb-4">Company</h3>
@@ -875,12 +882,12 @@ export default function Home() {
                 <li className="flex items-start gap-3">
                   <MapPin className="h-5 w-5 text-[#FFA500] shrink-0 mt-1" />
                   <span className="text-white/80">
-                    2nd floor, 635, 7th main road, 2nd stage, Indiranagar, Bengaluru, Karnataka, 560038
+                    Jyothi Nagar, Nelamgala, Bengaluru, Karnataka, 562123
                   </span>
                 </li>
                 <li className="flex items-center gap-3">
                   <Phone className="h-5 w-5 text-[#FFA500]" />
-                  <span className="text-white/80">044-4827829</span>
+                  <span className="text-white/80">+91 99644 77987</span>
                 </li>
               </ul>
             </div>
@@ -888,7 +895,7 @@ export default function Home() {
 
           <div className="border-t border-white/10 mt-12 pt-8">
             <div className="flex flex-col md:flex-row justify-between items-center gap-6">
-              <p className="text-white/60 text-sm">© {new Date().getFullYear()} FreshXpress. All rights reserved.</p>
+              <p className="text-white/60 text-sm">© {new Date().getFullYear()} FreshXpress Ventures</p>
               <div className="flex flex-wrap justify-center gap-6">
                 <Link href="#" className="text-white/80 hover:text-white text-sm transition-colors">
                   Terms and Conditions
